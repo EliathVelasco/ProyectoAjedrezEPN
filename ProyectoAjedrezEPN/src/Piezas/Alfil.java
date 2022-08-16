@@ -9,6 +9,10 @@ public class Alfil extends Pieza{
 
     @Override
     public String toString() {
-        return "A";
+        if(color == ColorPiezas.BLANCAS){
+            return "A";
+        }else{
+            return "a";
+        }
     }
 }

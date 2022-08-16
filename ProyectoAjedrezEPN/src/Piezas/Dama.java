@@ -7,6 +7,10 @@ public class Dama extends Pieza{
     }
     @Override
     public String toString() {
-        return "D";
+        if(color == ColorPiezas.BLANCAS){
+            return "D";
+        }else{
+            return "d";
+        }
     }
 }

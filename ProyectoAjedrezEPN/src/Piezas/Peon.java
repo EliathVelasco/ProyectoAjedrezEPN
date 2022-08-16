@@ -11,6 +11,10 @@ public class Peon extends Pieza {
 
     @Override
     public String toString() {
-        return "P";
+        if(color == ColorPiezas.BLANCAS){
+            return "P";
+        }else{
+            return "p";
+        }
     }
 }

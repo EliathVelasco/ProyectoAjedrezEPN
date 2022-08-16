@@ -12,7 +12,11 @@ public class Torre extends Pieza {
 
     @Override
     public String toString() {
-        return "T";
+        if(color == ColorPiezas.BLANCAS){
+            return "T";
+        }else{
+            return "t";
+        }
     }
 
 }

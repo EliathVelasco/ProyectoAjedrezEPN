@@ -12,6 +12,10 @@ public class Rey extends Pieza {
 
     @Override
     public String toString() {
-        return "R";
+        if(color == ColorPiezas.BLANCAS){
+            return "R";
+        }else{
+            return "r";
+        }
     }
 }

@@ -1,9 +1,14 @@
+package Partida;
+
 import Piezas.*;
-import Partida.*;
+
 public class Tablero {
+    private static final int LARGO_TABLERO = 8;
+    private static final int ANCHO_TABLERO = 8;
     private Casilla[][] casillas;
+
     public Tablero() {
-        this.casillas = new Casilla[8][8];
+        this.casillas = new Casilla[LARGO_TABLERO][ANCHO_TABLERO];
 
         casillas[0][0] = new Casilla(new Torre(ColorPiezas.BLANCAS));
         casillas[0][7] = new Casilla(new Torre(ColorPiezas.BLANCAS));
@@ -22,37 +27,45 @@ public class Tablero {
         casillas[0][4] = new Casilla(new Rey(ColorPiezas.BLANCAS));
         casillas[7][4] = new Casilla(new Rey(ColorPiezas.NEGRAS));
 
-        for (int i = 0; i < 8; i++) {
+        for (int i = 0; i < ANCHO_TABLERO; i++) {
             casillas[1][i] = new Casilla(new Peon(ColorPiezas.BLANCAS));
             casillas[6][i] = new Casilla(new Peon(ColorPiezas.NEGRAS));
         }
 
-        for (int i = 2; i < 6; i++) {
+        for (int i = 2; i < LARGO_TABLERO - 2; i++) {
             for (int j = 0; j < 8; j++) {
                 casillas[i][j] = new Casilla();
             }
         }
-        System.out.println('\n');
     }
-
 
     @Override
     public String toString() {
         String tableroCompleto = "";
-        tableroCompleto += " a  b  c  d  e  f  g  h ";
+        tableroCompleto += " a  b  c  d  e  f  g  h \n";
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
                 if (casillas[i][j].hayPieza()) {
-                    tableroCompleto +="[" + casillas[i][j] + "]";
+                    tableroCompleto += "[" + casillas[i][j] + "]";
                 } else {
-                    tableroCompleto +="[ ]";
+                    tableroCompleto += "[ ]";
                 }
-
             }
             tableroCompleto += (i + 1);
-            tableroCompleto +='\n';
+            tableroCompleto += '\n';
         }
 
         return tableroCompleto;
     }
+
+    public void hacerMovimiento(Movimiento movimiento) {
+        if (validarMovimiento()) {
+
+        }
+    }
+
+    private boolean validarMovimiento() {
+        return true;
+    }
 }
+

@@ -1,3 +1,5 @@
+package Partida;
+
 import Piezas.Pieza;
 
 public class Casilla {

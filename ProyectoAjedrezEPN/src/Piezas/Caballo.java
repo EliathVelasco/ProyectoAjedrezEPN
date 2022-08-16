@@ -10,6 +10,10 @@ public class Caballo extends Pieza {
 
     @Override
     public String toString() {
-        return "C";
+        if(color == ColorPiezas.BLANCAS){
+            return "C";
+        }else{
+            return "c";
+        }
     }
 }
