@@ -59,12 +59,51 @@ public class Tablero {
     }
 
     public void hacerMovimiento(Movimiento movimiento) {
-        if (validarMovimiento()) {
+        if (movimientoEsValido(movimiento)) {
+            /*
+            if(movimientoEsEspecial(movimiento)){
+                caso peon
+                    caso coronacion
+                        caso blanco
+                            ultima fila [7]
+                        caso negro
+                            ultima fila [0]
+                    caso tomarAlPaso
 
+                caso rey
+                    caso enroqueCorto
+                        verificar que
+                            1. no haya nada entre la torre y el rey
+                            2. no se haya movido el rey
+                            3. no se haya movido la torre
+                            4. que no este en jaque
+                            5. que ninguna pieza este apuntando por donde va a pasar el rey
+
+                    caso enroqueLargo
+            }
+            */
+            /*
+            * movimientoEspecial{
+            *   abstract hacerMovimientoEspecial();
+            * }
+            *
+            * class Peon implements movimientoEspecial{
+            *   hacerMovimiento(){
+            *   asfdsadfdasf
+            * }
+            * }
+            *
+            * */
+            //enroque -> rey a la torre  y viceversa
+            //en la list de movs del rey enroque disponible:
+            //peones -> coronacion
+
+            casillas[movimiento.coordenadasFinales[0]][movimiento.coordenadasFinales[1]].setPieza(casillas[movimiento.coordenadasIniciales[0]][movimiento.coordenadasIniciales[1]].getPieza());
         }
     }
 
-    private boolean validarMovimiento() {
+    private boolean movimientoEsValido(Movimiento movimiento) {
+        //ver la lista de mov y ver que el movimiento este en la lista
         return true;
     }
 }

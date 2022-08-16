@@ -33,4 +33,7 @@ public class Casilla {
     }
 
 
+    public void setPieza(Pieza pieza) {
+        this.pieza=pieza;
+    }
 }

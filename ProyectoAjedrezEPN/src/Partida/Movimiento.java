@@ -1,14 +1,13 @@
 package Partida;
 import errores.*;
-
 import java.util.regex.*;
 
 public class Movimiento {
-    private final int [] coordenadasIniciales = new int[2];
-    private int [] coordenadasFinales = new int[2];
-    private final Jugador jugadorQueRealizó;
+    protected final int [] coordenadasIniciales = new int[2];
+    protected final int [] coordenadasFinales = new int[2];
+    private final Jugador jugadorQueRealizoLaJugada;
 
-    public Movimiento(String jugada, Jugador jugadorQueRealizó) throws SintaxisInvalida {
+    public Movimiento(String jugada, Jugador jugador) throws SintaxisInvalida {
         if (!(Pattern.matches("[a-h][1-8][a-h][1-8]", jugada.toLowerCase()))) {
             throw new SintaxisInvalida("Sintaxis no valida");
         }
@@ -19,7 +18,7 @@ public class Movimiento {
         coordenadasFinales[0] = transformarFilaIngresadaEnIndice(jugada.charAt(3));
         coordenadasFinales[1] = transformarColumnaIngresadaEnIndice(jugada.charAt(2));
 
-        this.jugadorQueRealizó = jugadorQueRealizó;
+        this.jugadorQueRealizoLaJugada = jugador;
     }
 
     private int transformarFilaIngresadaEnIndice(char fila){
