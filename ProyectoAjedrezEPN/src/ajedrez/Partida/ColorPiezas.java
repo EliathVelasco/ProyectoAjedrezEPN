@@ -1,4 +1,4 @@
-package Partida;
+package ajedrez.Partida;
 
 public enum ColorPiezas {
     BLANCAS,

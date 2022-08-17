@@ -1,6 +1,7 @@
-package Piezas;
-import Partida.*;
-import java.util.Vector;
+package ajedrez.Piezas;
+import ajedrez.Partida.*;
+
+import java.util.ArrayList;
 
 
 public class Caballo extends Pieza {
@@ -15,5 +16,9 @@ public class Caballo extends Pieza {
         }else{
             return "c";
         }
+    }
+
+    public ArrayList<ArrayList<int[]>> obtenerListaDeMovimientosLegales(Movimiento moviemiento){
+        return null;
     }
 }

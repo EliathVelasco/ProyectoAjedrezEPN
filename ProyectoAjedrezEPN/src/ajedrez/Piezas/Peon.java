@@ -1,5 +1,7 @@
-package Piezas;
-import Partida.*;
+package ajedrez.Piezas;
+import ajedrez.Partida.*;
+
+import java.util.ArrayList;
 
 public class Peon extends Pieza {
     private boolean primerMovimiento;
@@ -16,5 +18,8 @@ public class Peon extends Pieza {
         }else{
             return "p";
         }
+    }
+    public ArrayList<ArrayList<int[]>> obtenerListaDeMovimientosLegales(Movimiento moviemiento){
+        return null;
     }
 }

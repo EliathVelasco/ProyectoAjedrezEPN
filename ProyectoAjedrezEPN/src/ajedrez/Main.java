@@ -1,5 +1,7 @@
-import Partida.*;
-import errores.PartidaFinalizadoException;
+package ajedrez;
+
+import ajedrez.Partida.*;
+import ajedrez.errores.PartidaFinalizadoException;
 
 import java.util.Scanner;
 

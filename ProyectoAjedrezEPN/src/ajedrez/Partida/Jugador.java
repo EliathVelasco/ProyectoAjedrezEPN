@@ -1,4 +1,4 @@
-package Partida;
+package ajedrez.Partida;
 
 public class Jugador {
     private ColorPiezas colorDelJugador;

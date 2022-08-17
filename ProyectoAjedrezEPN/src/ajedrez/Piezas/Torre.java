@@ -1,5 +1,7 @@
-package Piezas;
-import Partida.*;
+package ajedrez.Piezas;
+import ajedrez.Partida.*;
+
+import java.util.ArrayList;
 
 public class Torre extends Pieza {
     private boolean primerMovimiento;
@@ -7,7 +9,12 @@ public class Torre extends Pieza {
         super(color,5);
         this.primerMovimiento = true;
 
+
     }
+
+    /*
+    *
+    * */
 
 
     @Override
@@ -17,6 +24,9 @@ public class Torre extends Pieza {
         }else{
             return "t";
         }
+    }
+    public ArrayList<ArrayList<int[]>> obtenerListaDeMovimientosLegales(Movimiento moviemiento){
+        return null;
     }
 
 }

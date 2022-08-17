@@ -1,6 +1,6 @@
-package Partida;
+package ajedrez.Partida;
 
-import Piezas.*;
+import ajedrez.Piezas.*;
 
 public class Tablero {
     private static final int LARGO_TABLERO = 8;
@@ -61,6 +61,25 @@ public class Tablero {
     public void hacerMovimiento(Movimiento movimiento) {
         if (movimientoEsValido(movimiento)) {
             /*
+            lista{
+                lista0{...}
+                lista1{...}
+            }
+
+            lista{
+                .
+                .
+                .Caballo
+                .Rey
+                .
+                .
+                .
+                .
+                .
+            }
+
+            pedirle a la pieza que confirme
+
             if(movimientoEsEspecial(movimiento)){
                 caso peon
                     caso coronacion

@@ -1,5 +1,5 @@
-package Partida;
-import errores.*;
+package ajedrez.Partida;
+import ajedrez.errores.*;
 import java.util.regex.*;
 
 public class Movimiento {
@@ -28,5 +28,13 @@ public class Movimiento {
     private int transformarColumnaIngresadaEnIndice(char columna) {
         String cadenaDeLetras = "abcdefgh";
         return cadenaDeLetras.indexOf(columna);
+    }
+
+    public int getColumnaInicial(){
+        return coordenadasIniciales[1];
+    }
+
+    public int getFilaInicial(){
+        return coordenadasIniciales[0];
     }
 }

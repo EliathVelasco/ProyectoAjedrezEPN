@@ -1,4 +1,4 @@
-package errores;
+package ajedrez.errores;
 
 public class PartidaFinalizadoException extends Exception{
 

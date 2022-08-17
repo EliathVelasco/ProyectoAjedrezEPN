@@ -1,6 +1,6 @@
-package Partida;
+package ajedrez.Partida;
 
-import errores.SintaxisInvalida;
+import ajedrez.errores.SintaxisInvalida;
 
 import java.util.Scanner;
 

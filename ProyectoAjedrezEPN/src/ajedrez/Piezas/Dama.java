@@ -1,5 +1,7 @@
-package Piezas;
-import Partida.*;
+package ajedrez.Piezas;
+import ajedrez.Partida.*;
+
+import java.util.ArrayList;
 
 public class Dama extends Pieza{
     public Dama(ColorPiezas color) {
@@ -12,5 +14,8 @@ public class Dama extends Pieza{
         }else{
             return "d";
         }
+    }
+    public ArrayList<ArrayList<int[]>> obtenerListaDeMovimientosLegales(Movimiento moviemiento){
+        return null;
     }
 }

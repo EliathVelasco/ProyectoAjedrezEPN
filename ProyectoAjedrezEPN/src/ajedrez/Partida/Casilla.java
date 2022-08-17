@@ -1,6 +1,6 @@
-package Partida;
+package ajedrez.Partida;
 
-import Piezas.Pieza;
+import ajedrez.Piezas.Pieza;
 
 public class Casilla {
     private Pieza pieza;

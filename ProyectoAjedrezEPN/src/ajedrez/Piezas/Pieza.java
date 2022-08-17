@@ -1,5 +1,7 @@
-package Piezas;
-import  Partida.*;
+package ajedrez.Piezas;
+import ajedrez.Partida.*;
+import ajedrez.Partida.ColorPiezas;
+import java.util.ArrayList;
 
 public abstract class Pieza {
     private int valorDePieza;
@@ -9,4 +11,6 @@ public abstract class Pieza {
         this.valorDePieza = valorDePieza;
         this.color = color;
     }
+
+    public abstract ArrayList<ArrayList<int[]>> obtenerListaDeMovimientosLegales(Movimiento moviemiento);
 }
