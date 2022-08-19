@@ -1,8 +1,6 @@
-package ajedrez.Piezas;
-import ajedrez.Partida.*;
+package ajedrez.piezas;
+import ajedrez.partida.*;
 import java.util.ArrayList;
-
-
 
 public class Alfil extends Pieza{
     public Alfil(ColorPiezas color) {
@@ -10,9 +8,8 @@ public class Alfil extends Pieza{
     }
 
     public ArrayList<ArrayList<int[]>> obtenerListaDeMovimientosLegales(Movimiento movimiento){
-        ArrayList<ArrayList<int []>> movimientosPosibles = new ArrayList<>();
-        ArrayList<int []> aux = new ArrayList<>();
 
+        ArrayList<int []> aux = new ArrayList<>();
 
         int auxColumna = movimiento.getColumnaInicial();
 

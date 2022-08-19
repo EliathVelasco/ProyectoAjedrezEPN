@@ -1,5 +1,5 @@
-package ajedrez.Partida;
-import ajedrez.errores.*;
+package ajedrez.partida;
+import ajedrez.excepciones.*;
 import java.util.regex.*;
 
 public class Movimiento {

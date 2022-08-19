@@ -1,6 +1,6 @@
-package ajedrez.Partida;
+package ajedrez.partida;
 
-import ajedrez.errores.SintaxisInvalida;
+import ajedrez.excepciones.SintaxisInvalida;
 
 import java.util.Scanner;
 
@@ -43,6 +43,7 @@ public class Partida {
                     System.out.println(si.getMessage());
                 }
             }
+
             while (colorTurnoActual == ColorPiezas.NEGRAS) {
                 try {
                     tablero.hacerMovimiento(preguntarMovimiento(jugadorNegro));

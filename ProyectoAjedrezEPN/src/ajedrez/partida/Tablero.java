@@ -1,6 +1,6 @@
-package ajedrez.Partida;
+package ajedrez.partida;
 
-import ajedrez.Piezas.*;
+import ajedrez.piezas.*;
 
 public class Tablero {
     private static final int LARGO_TABLERO = 8;

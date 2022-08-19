@@ -1,25 +1,29 @@
-package ajedrez.Piezas;
-import ajedrez.Partida.*;
+package ajedrez.piezas;
+import ajedrez.partida.*;
 
 import java.util.ArrayList;
 
-public class Peon extends Pieza {
+public class Torre extends Pieza {
     private boolean primerMovimiento;
-
-    public Peon(ColorPiezas color) {
-        super(color,1);
+    public Torre(ColorPiezas color) {
+        super(color,5);
         this.primerMovimiento = true;
     }
+
+    /*
+    *
+    * */
 
     @Override
     public String toString() {
         if(color == ColorPiezas.BLANCAS){
-            return "P";
+            return "T";
         }else{
-            return "p";
+            return "t";
         }
     }
     public ArrayList<ArrayList<int[]>> obtenerListaDeMovimientosLegales(Movimiento moviemiento){
         return null;
     }
+
 }

@@ -1,20 +1,22 @@
-package ajedrez.Piezas;
-import ajedrez.Partida.*;
+package ajedrez.piezas;
+import ajedrez.partida.*;
 
 import java.util.ArrayList;
 
-public class Dama extends Pieza{
-    public Dama(ColorPiezas color) {
-        super(color,9);
+public class Caballo extends Pieza {
+    public Caballo(ColorPiezas color) {
+        super(color,3);
     }
+
     @Override
     public String toString() {
         if(color == ColorPiezas.BLANCAS){
-            return "D";
+            return "C";
         }else{
-            return "d";
+            return "c";
         }
     }
+
     public ArrayList<ArrayList<int[]>> obtenerListaDeMovimientosLegales(Movimiento moviemiento){
         return null;
     }

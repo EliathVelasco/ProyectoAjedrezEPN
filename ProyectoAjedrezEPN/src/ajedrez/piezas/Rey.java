@@ -1,10 +1,9 @@
-package ajedrez.Piezas;
-import ajedrez.Partida.*;
-import ajedrez.IMovimientoEspecial;
+package ajedrez.piezas;
+import ajedrez.partida.*;
 
 import java.util.ArrayList;
 
-public class Rey extends Pieza implements IMovimientoEspecial {
+public class Rey extends Pieza{
     private boolean primerMovimiento;
 
     public Rey(ColorPiezas color) {
@@ -22,12 +21,7 @@ public class Rey extends Pieza implements IMovimientoEspecial {
     }
 
     @Override
-    public void realizarMovimientoEspecial(Movimiento movimiento) {
-
-    }
-
-    @Override
-    public ArrayList<ArrayList<int[]>> obtenerListaDeMovimientosLegales(Movimiento moviemiento) {
+    public ArrayList<ArrayList<int[]>> obtenerListaDeMovimientosLegales(Movimiento movimiento) {
         return null;
     }
 }
