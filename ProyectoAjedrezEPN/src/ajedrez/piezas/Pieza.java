@@ -4,15 +4,14 @@ import java.util.ArrayList;
 
 
 public abstract class Pieza {
-
     private final int valorDePieza;
     protected ColorPiezas color;
-    protected ArrayList<ArrayList<int []>> movimientosPosibles;
+    protected ArrayList<ArrayList<int []>> coordenadasPosibles;
 
     public Pieza(ColorPiezas color, int valorDePieza) {
         this.valorDePieza = valorDePieza;
         this.color = color;
-        this.movimientosPosibles = new ArrayList<>();
+        this.coordenadasPosibles = new ArrayList<>();
 
     }
 

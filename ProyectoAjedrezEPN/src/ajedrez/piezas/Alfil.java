@@ -8,7 +8,7 @@ public class Alfil extends Pieza{
     }
 
     public ArrayList<ArrayList<int[]>> obtenerListaDeCoordenadasPosibles(Movimiento movimiento){
-        ArrayList<ArrayList<int []>> movimientosPosibles = new ArrayList<>();
+        //ArrayList<ArrayList<int []>> coordenadasPosibles = new ArrayList<>();
         ArrayList<int []> aux = new ArrayList<>();
 
 
@@ -23,7 +23,7 @@ public class Alfil extends Pieza{
             }
         }
 
-        movimientosPosibles.add((ArrayList<int[]>) aux.clone());
+        coordenadasPosibles.add((ArrayList<int[]>) aux.clone());
         aux.clear();
 
         auxColumna = movimiento.getColumnaInicial();
@@ -37,7 +37,7 @@ public class Alfil extends Pieza{
             }
         }
 
-        movimientosPosibles.add((ArrayList<int[]>) aux.clone());
+        coordenadasPosibles.add((ArrayList<int[]>) aux.clone());
         aux.clear();
 
         auxColumna = movimiento.getColumnaInicial();
@@ -50,7 +50,7 @@ public class Alfil extends Pieza{
                 break;
             }
         }
-        movimientosPosibles.add((ArrayList<int[]>) aux.clone());
+        coordenadasPosibles.add((ArrayList<int[]>) aux.clone());
         aux.clear();
 
         auxColumna = movimiento.getColumnaInicial();
@@ -64,10 +64,10 @@ public class Alfil extends Pieza{
             }
         }
 
-        movimientosPosibles.add((ArrayList<int[]>) aux.clone());
+        coordenadasPosibles.add((ArrayList<int[]>) aux.clone());
         aux.clear();
 
-        return movimientosPosibles;
+        return coordenadasPosibles;
     }
 
 
