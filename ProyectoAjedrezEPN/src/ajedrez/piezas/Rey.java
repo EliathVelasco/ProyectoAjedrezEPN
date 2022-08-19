@@ -1,6 +1,6 @@
-package ajedrez.Piezas;
-import ajedrez.Partida.*;
-import ajedrez.IMovimientoEspecial;
+package ajedrez.piezas;
+import ajedrez.partida.*;
+import java.util.ArrayList;
 
 import java.util.ArrayList;
 

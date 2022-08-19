@@ -1,6 +1,5 @@
-package ajedrez.Piezas;
-import ajedrez.Partida.*;
-
+package ajedrez.piezas;
+import ajedrez.partida.*;
 import java.util.ArrayList;
 
 public class Torre extends Pieza {
@@ -8,8 +7,6 @@ public class Torre extends Pieza {
     public Torre(ColorPiezas color) {
         super(color,5);
         this.primerMovimiento = true;
-
-
     }
     @Override
     public String toString() {

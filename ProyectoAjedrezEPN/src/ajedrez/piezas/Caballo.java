@@ -1,6 +1,5 @@
 package ajedrez.piezas;
 import ajedrez.partida.*;
-
 import java.util.ArrayList;
 
 public class Caballo extends Pieza {

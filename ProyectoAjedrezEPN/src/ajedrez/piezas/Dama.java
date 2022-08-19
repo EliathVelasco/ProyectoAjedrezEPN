@@ -1,6 +1,5 @@
-package ajedrez.Piezas;
-import ajedrez.Partida.*;
-
+package ajedrez.piezas;
+import ajedrez.partida.*;
 import java.util.ArrayList;
 
 public class Dama extends Pieza{

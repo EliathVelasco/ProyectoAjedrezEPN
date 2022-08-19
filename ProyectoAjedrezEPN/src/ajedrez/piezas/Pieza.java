@@ -1,6 +1,5 @@
 package ajedrez.piezas;
 import ajedrez.partida.*;
-import ajedrez.partida.ColorPiezas;
 import java.util.ArrayList;
 
 
