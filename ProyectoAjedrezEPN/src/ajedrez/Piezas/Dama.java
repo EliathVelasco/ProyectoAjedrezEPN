@@ -15,7 +15,7 @@ public class Dama extends Pieza{
             return "d";
         }
     }
-    public ArrayList<ArrayList<int[]>> obtenerListaDeMovimientosLegales(Movimiento moviemiento){
+    public ArrayList<ArrayList<int[]>> obtenerListaDeCoordenadasPosibles(Movimiento movimiento){
         return null;
     }
 }

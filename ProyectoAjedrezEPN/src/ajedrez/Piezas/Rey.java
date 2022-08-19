@@ -27,7 +27,7 @@ public class Rey extends Pieza implements IMovimientoEspecial {
     }
 
     @Override
-    public ArrayList<ArrayList<int[]>> obtenerListaDeMovimientosLegales(Movimiento moviemiento) {
+    public ArrayList<ArrayList<int[]>> obtenerListaDeCoordenadasPosibles(Movimiento movimiento) {
         return null;
     }
 }

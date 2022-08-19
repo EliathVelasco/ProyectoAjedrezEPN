@@ -12,5 +12,5 @@ public abstract class Pieza {
         this.color = color;
     }
 
-    public abstract ArrayList<ArrayList<int[]>> obtenerListaDeMovimientosLegales(Movimiento moviemiento);
+    public abstract ArrayList<ArrayList<int[]>> obtenerListaDeCoordenadasPosibles(Movimiento movimiento);
 }

@@ -9,7 +9,7 @@ public class Alfil extends Pieza{
         super(color, 3);
     }
 
-    public ArrayList<ArrayList<int[]>> obtenerListaDeMovimientosLegales(Movimiento movimiento){
+    public ArrayList<ArrayList<int[]>> obtenerListaDeCoordenadasPosibles(Movimiento movimiento){
         ArrayList<ArrayList<int []>> movimientosPosibles = new ArrayList<>();
         ArrayList<int []> aux = new ArrayList<>();
 
@@ -18,7 +18,6 @@ public class Alfil extends Pieza{
 
         for (int i = movimiento.getFilaInicial(); i < 8; i++){
             aux.add(new int[] {i, auxColumna});
-
             if (auxColumna < 7){
                 auxColumna++;
             }else {

@@ -11,12 +11,6 @@ public class Torre extends Pieza {
 
 
     }
-
-    /*
-    *
-    * */
-
-
     @Override
     public String toString() {
         if(color == ColorPiezas.BLANCAS){
@@ -25,8 +19,38 @@ public class Torre extends Pieza {
             return "t";
         }
     }
-    public ArrayList<ArrayList<int[]>> obtenerListaDeMovimientosLegales(Movimiento moviemiento){
-        return null;
+    public ArrayList<ArrayList<int[]>> obtenerListaDeCoordenadasPosibles(Movimiento movimiento){
+        ArrayList<ArrayList<int []>> coordenadasPosibles = new ArrayList<>();
+        ArrayList<int []> aux = new ArrayList<>();
+
+        for (int i = movimiento.getFilaInicial(); i < 8; i++) {
+            aux.add(new int[]{i, movimiento.getColumnaInicial()});
+        }
+
+        coordenadasPosibles.add((ArrayList<int[]>) aux.clone());
+        aux.clear();
+
+        for (int i = movimiento.getFilaInicial(); i >= 0; i--) {
+            aux.add(new int[]{i, movimiento.getColumnaInicial()});
+        }
+
+        coordenadasPosibles.add((ArrayList<int[]>) aux.clone());
+        aux.clear();
+
+        for (int i = movimiento.getColumnaInicial(); i < 8; i++) {
+            aux.add(new int[]{movimiento.getFilaInicial(), i});
+        }
+
+        coordenadasPosibles.add((ArrayList<int[]>) aux.clone());
+        aux.clear();
+
+        for (int i = movimiento.getColumnaInicial(); i >= 0; i--) {
+            aux.add(new int[]{movimiento.getFilaInicial(), i});
+        }
+
+        coordenadasPosibles.add((ArrayList<int[]>) aux.clone());
+
+        return coordenadasPosibles;
     }
 
 }
