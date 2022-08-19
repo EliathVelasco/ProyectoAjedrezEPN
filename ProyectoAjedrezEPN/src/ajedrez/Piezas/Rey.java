@@ -4,7 +4,7 @@ import ajedrez.IMovimientoEspecial;
 
 import java.util.ArrayList;
 
-public class Rey extends Pieza implements IMovimientoEspecial {
+public class Rey extends Pieza {
     private boolean primerMovimiento;
 
     public Rey(ColorPiezas color) {
@@ -20,11 +20,8 @@ public class Rey extends Pieza implements IMovimientoEspecial {
             return "r";
         }
     }
-
-    @Override
-    public void realizarMovimientoEspecial(Movimiento movimiento) {
-
-    }
+    /*
+    * El rey tampoco clava las piezas, por lo que hay que ver que mismo hacemos aqui*/
 
     @Override
     public ArrayList<ArrayList<int[]>> obtenerListaDeCoordenadasPosibles(Movimiento movimiento) {
