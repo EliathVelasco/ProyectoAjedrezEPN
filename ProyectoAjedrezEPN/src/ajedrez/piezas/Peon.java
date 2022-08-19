@@ -19,7 +19,7 @@ public class Peon extends Pieza {
             return "p";
         }
     }
-    public ArrayList<ArrayList<int[]>> obtenerListaDeMovimientosLegales(Movimiento moviemiento){
+    public ArrayList<ArrayList<int[]>> obtenerListaDeCoordenadasPosibles(Movimiento movimiento){
         return null;
     }
 }

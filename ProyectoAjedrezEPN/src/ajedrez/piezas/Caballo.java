@@ -17,7 +17,26 @@ public class Caballo extends Pieza {
         }
     }
 
-    public ArrayList<ArrayList<int[]>> obtenerListaDeMovimientosLegales(Movimiento moviemiento){
-        return null;
+
+    /*
+    * El caballo no puede clavar una pieza, ver si cambiamos esto o ponemos una excepcion
+    * yo preferiría una excepcion XD*/
+    public ArrayList<ArrayList<int[]>> obtenerListaDeCoordenadasPosibles(Movimiento movimiento){
+        ArrayList<ArrayList<int []>> coordenadasPosibles = new ArrayList<>();
+        ArrayList<int []> aux = new ArrayList<>();
+
+        aux.add(new int[] {movimiento.getFilaInicial()+2, movimiento.getColumnaInicial()+1});
+        aux.add(new int[] {movimiento.getFilaInicial()+2, movimiento.getColumnaInicial()-1});
+        aux.add(new int[] {movimiento.getFilaInicial()+1, movimiento.getColumnaInicial()+2});
+        aux.add(new int[] {movimiento.getFilaInicial()+1, movimiento.getColumnaInicial()-2});
+        aux.add(new int[] {movimiento.getFilaInicial()-2, movimiento.getColumnaInicial()+1});
+        aux.add(new int[] {movimiento.getFilaInicial()-2, movimiento.getColumnaInicial()-1});
+        aux.add(new int[] {movimiento.getFilaInicial()-1, movimiento.getColumnaInicial()+2});
+        aux.add(new int[] {movimiento.getFilaInicial()-1, movimiento.getColumnaInicial()-2});
+
+        coordenadasPosibles.add((ArrayList<int[]>) aux.clone());
+        aux.clear();
+
+        return coordenadasPosibles;
     }
 }
