@@ -41,6 +41,8 @@ public class Partida {
                     colorTurnoActual = ColorPiezas.NEGRAS;
                 }catch(SintaxisInvalida si){
                     System.out.println(si.getMessage());
+                } catch(EnroqueCorto ec){
+                    tablero.hacerEnroqueCorto(movimiento);
                 }
             }
 

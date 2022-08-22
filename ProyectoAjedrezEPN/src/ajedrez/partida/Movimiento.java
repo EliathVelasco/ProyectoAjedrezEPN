@@ -8,9 +8,11 @@ public class Movimiento {
     private final Jugador jugadorQueRealizoLaJugada;
 
     public Movimiento(String jugada, Jugador jugador) throws SintaxisInvalida {
-        if (!(Pattern.matches("[a-h][1-8][a-h][1-8]|(0-0)|(0-0-0)", jugada.toLowerCase()))) {
+        if (!(Pattern.matches("[a-h][1-8][a-h][1-8]", jugada.toLowerCase()))) {
             throw new SintaxisInvalida("Sintaxis no valida");
         }
+
+
 
         coordenadasIniciales[0] = transformarFilaIngresadaEnIndice(jugada.charAt(1));
         coordenadasIniciales[1] = transformarColumnaIngresadaEnIndice(jugada.charAt(0));

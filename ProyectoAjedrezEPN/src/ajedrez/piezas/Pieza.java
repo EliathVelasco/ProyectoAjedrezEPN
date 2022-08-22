@@ -1,7 +1,7 @@
 package ajedrez.piezas;
+import ajedrez.excepciones.*;
 import ajedrez.partida.*;
 import java.util.ArrayList;
-
 
 public abstract class Pieza {
     private final int valorDePieza;
@@ -15,5 +15,5 @@ public abstract class Pieza {
 
     }
 
-    public abstract ArrayList<ArrayList<int[]>> obtenerListaDeCoordenadasPosibles(Movimiento movimiento);
+    public abstract ArrayList<ArrayList<int[]>> obtenerListaDeCoordenadasPosibles(Movimiento movimiento) throws EnroqueCorto, EnroqueLargo;
 }

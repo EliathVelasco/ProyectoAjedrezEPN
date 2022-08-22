@@ -1,6 +1,7 @@
 package ajedrez.partida;
 
 import ajedrez.piezas.*;
+import ajedrez.excepciones.*;
 
 public class Tablero {
     private static final int LARGO_TABLERO = 8;
@@ -59,69 +60,28 @@ public class Tablero {
     }
 
     public void hacerMovimiento(Movimiento movimiento) {
-        if (movimientoEsValido(movimiento)) {
-            /*
-            lista{
-                lista0{...}
-                lista1{...}
+        try{
+            if (movimientoEsValido(movimiento)){
+                casillas[movimiento.coordenadasFinales[0]][movimiento.coordenadasFinales[1]].setPieza(casillas[movimiento.coordenadasIniciales[0]][movimiento.coordenadasIniciales[1]].getPieza());
             }
 
-            lista{
-                .
-                .
-                .Caballo
-                .Rey
-                .
-                .
-                .
-                .
-                .
-            }
-
-            pedirle a la pieza que confirme
-
-            if(movimientoEsEspecial(movimiento)){
-                caso peon
-                    caso coronacion
-                        caso blanco
-                            ultima fila [7]
-                        caso negro
-                            ultima fila [0]
-                    caso tomarAlPaso
-
-                caso rey
-                    caso enroqueCorto
-                        verificar que
-                            1. no haya nada entre la torre y el rey
-                            2. no se haya movido el rey
-                            3. no se haya movido la torre
-                            4. que no este en jaque
-                            5. que ninguna pieza este apuntando por donde va a pasar el rey
-
-                    caso enroqueLargo
-            }
-            */
-            /*
-            * movimientoEspecial{
-            *   abstract hacerMovimientoEspecial();
-            * }
-            *
-            * class Peon implements movimientoEspecial{
-            *   hacerMovimiento(){
-            *   asfdsadfdasf
-            * }
-            * }
-            *
-            * */
-            //enroque -> rey a la torre  y viceversa
-            //en la list de movs del rey enroque disponible:
-            //peones -> coronacion
-
-            casillas[movimiento.coordenadasFinales[0]][movimiento.coordenadasFinales[1]].setPieza(casillas[movimiento.coordenadasIniciales[0]][movimiento.coordenadasIniciales[1]].getPieza());
         }
+
+    }
+
+    private void hacerEnroqueLargo() {
+    }
+
+    private void hacerEnroqueCorto() {
+
+    }
+
+    private void hacerCoronacion(Movimiento movimiento) {
+
     }
 
     private boolean movimientoEsValido(Movimiento movimiento) {
+
         //ver la lista de mov y ver que el movimiento este en la lista
         return true;
     }

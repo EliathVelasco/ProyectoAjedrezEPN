@@ -1,8 +1,10 @@
 package ajedrez.piezas;
+import ajedrez.excepciones.*;
 import ajedrez.partida.*;
 import java.util.ArrayList;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Rey extends Pieza {
     private boolean primerMovimiento;
@@ -24,8 +26,27 @@ public class Rey extends Pieza {
     * El rey tampoco clava las piezas, por lo que hay que ver que mismo hacemos aqui*/
 
     @Override
-    public ArrayList<ArrayList<int[]>> obtenerListaDeCoordenadasPosibles(Movimiento movimiento) {
+    public ArrayList<ArrayList<int[]>> obtenerListaDeCoordenadasPosibles(Movimiento movimiento) throws EnroqueCorto, EnroqueLargo{
         ArrayList<int []> aux = new ArrayList<>();
+        if(primerMovimiento){
+            if(color == ColorPiezas.NEGRAS){
+                if(Arrays.equals(movimiento.getCoordenadasIniciales(), new int[]{0,4}) && Arrays.equals(movimiento.getCoordenadasFinales(), new int[]{0,7})){
+                    throw new EnroqueLargo();
+                }
+                if (Arrays.equals(movimiento.getCoordenadasIniciales(), new int[]{0,4}) && Arrays.equals(movimiento.getCoordenadasFinales(), new int[]{0,0})){
+                    throw new EnroqueCorto();
+                }
+            }
+            if(color == ColorPiezas.BLANCAS){
+                if(Arrays.equals(movimiento.getCoordenadasIniciales(), new int[]{7,4}) && Arrays.equals(movimiento.getCoordenadasFinales(), new int[]{7,7})){
+                    throw new EnroqueLargo();
+                }
+                if (Arrays.equals(movimiento.getCoordenadasIniciales(), new int[]{7,4}) && Arrays.equals(movimiento.getCoordenadasFinales(), new int[]{7,0})){
+                    throw new EnroqueCorto();
+                }
+            }
+        }
+
 
         
 
