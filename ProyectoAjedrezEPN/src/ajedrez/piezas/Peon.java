@@ -38,7 +38,7 @@ public class Peon extends Pieza {
         *
         *
         * */
-        return listaDeCoordenadasPosibles;
+        return coordenadasPosibles;
     }
 
     private void asignarTipoDeCoronacion(Movimiento movimiento) throws CoronacionAvanzando, CoronacionCapturando{
@@ -51,5 +51,11 @@ public class Peon extends Pieza {
     }
     public void quitarPrimerMovimiento(){
         this.primerMovimiento=false;
+    }
+    public void agregarMovimientosPeonesBlancas(){
+
+    }
+    public void agregarMovimientosDeCapturaNegra(){
+
     }
 }

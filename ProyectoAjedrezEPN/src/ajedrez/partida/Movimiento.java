@@ -39,4 +39,12 @@ public class Movimiento {
     public int getFilaInicial(){
         return coordenadasIniciales[0];
     }
+
+    public int[] getCoordenadasIniciales() {
+        return coordenadasIniciales;
+    }
+
+    public int[] getCoordenadasFinales() {
+        return coordenadasFinales;
+    }
 }

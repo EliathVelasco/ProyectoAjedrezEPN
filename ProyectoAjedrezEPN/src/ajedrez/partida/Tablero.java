@@ -64,6 +64,13 @@ public class Tablero {
             if (movimientoEsValido(movimiento)){
                 casillas[movimiento.coordenadasFinales[0]][movimiento.coordenadasFinales[1]].setPieza(casillas[movimiento.coordenadasIniciales[0]][movimiento.coordenadasIniciales[1]].getPieza());
             }
+        }catch (EnroqueCorto ec){
+            hacerEn
+        }catch (EnroqueLargo el){
+
+        }catch (CoronacionAvanzando ca){
+
+        }catch (CoronacionCapturando cc){
 
         }
 

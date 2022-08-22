@@ -29,7 +29,7 @@ public class Rey extends Pieza {
     public ArrayList<ArrayList<int[]>> obtenerListaDeCoordenadasPosibles(Movimiento movimiento) throws EnroqueCorto, EnroqueLargo{
         ArrayList<int []> aux = new ArrayList<>();
         if(primerMovimiento){
-            if(color == ColorPiezas.NEGRAS){
+            if(color == ColorPiezas.BLANCAS){
                 if(Arrays.equals(movimiento.getCoordenadasIniciales(), new int[]{0,4}) && Arrays.equals(movimiento.getCoordenadasFinales(), new int[]{0,7})){
                     throw new EnroqueLargo();
                 }
@@ -37,7 +37,7 @@ public class Rey extends Pieza {
                     throw new EnroqueCorto();
                 }
             }
-            if(color == ColorPiezas.BLANCAS){
+            if(color == ColorPiezas.NEGRAS){
                 if(Arrays.equals(movimiento.getCoordenadasIniciales(), new int[]{7,4}) && Arrays.equals(movimiento.getCoordenadasFinales(), new int[]{7,7})){
                     throw new EnroqueLargo();
                 }

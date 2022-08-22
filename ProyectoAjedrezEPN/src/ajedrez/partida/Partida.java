@@ -1,6 +1,6 @@
 package ajedrez.partida;
 
-import ajedrez.excepciones.SintaxisInvalida;
+import ajedrez.excepciones.*;
 
 import java.util.Scanner;
 
@@ -41,8 +41,6 @@ public class Partida {
                     colorTurnoActual = ColorPiezas.NEGRAS;
                 }catch(SintaxisInvalida si){
                     System.out.println(si.getMessage());
-                } catch(EnroqueCorto ec){
-                    tablero.hacerEnroqueCorto(movimiento);
                 }
             }
 
