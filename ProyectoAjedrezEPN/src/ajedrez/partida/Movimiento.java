@@ -1,5 +1,7 @@
 package ajedrez.partida;
 import ajedrez.excepciones.*;
+
+import java.util.Arrays;
 import java.util.regex.*;
 
 public class Movimiento {
@@ -46,5 +48,21 @@ public class Movimiento {
 
     public int[] getCoordenadasFinales() {
         return coordenadasFinales;
+    }
+
+    public int getFilaFinal() {
+        return coordenadasFinales[0];
+    }
+
+    public int getColumnaFinal() {
+        return coordenadasFinales[1];
+    }
+
+    @Override
+    public String toString() {
+        return "Movimiento{" +
+                "coordenadasIniciales=" + Arrays.toString(coordenadasIniciales) +
+                ", coordenadasFinales=" + Arrays.toString(coordenadasFinales) +"}";
+
     }
 }

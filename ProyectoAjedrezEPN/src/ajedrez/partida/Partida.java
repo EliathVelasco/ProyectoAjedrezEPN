@@ -38,6 +38,7 @@ public class Partida {
             while (colorTurnoActual == ColorPiezas.BLANCAS) {
                 try {
                     tablero.hacerMovimiento(preguntarMovimiento(jugadorBlanco));
+                    System.out.println(tablero);
                     colorTurnoActual = ColorPiezas.NEGRAS;
                 }catch(SintaxisInvalida si){
                     System.out.println(si.getMessage());
@@ -47,6 +48,7 @@ public class Partida {
             while (colorTurnoActual == ColorPiezas.NEGRAS) {
                 try {
                     tablero.hacerMovimiento(preguntarMovimiento(jugadorNegro));
+                    System.out.println(tablero);
                     colorTurnoActual = ColorPiezas.BLANCAS;
                 }catch(SintaxisInvalida si){
                     System.out.println(si.getMessage());

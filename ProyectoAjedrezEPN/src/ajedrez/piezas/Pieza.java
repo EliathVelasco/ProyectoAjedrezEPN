@@ -15,5 +15,8 @@ public abstract class Pieza {
 
     }
 
-    public abstract ArrayList<ArrayList<int[]>> obtenerListaDeCoordenadasPosibles(Movimiento movimiento) throws EnroqueCorto, EnroqueLargo;
+    public abstract ArrayList<ArrayList<int[]>> obtenerListaDeCoordenadasPosibles(Movimiento movimiento) throws EnroqueCorto, EnroqueLargo, CoronacionAvanzando, CoronacionCapturando;
+    public ColorPiezas getColor(){
+        return color;
+    }
 }

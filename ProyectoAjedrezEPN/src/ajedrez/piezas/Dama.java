@@ -16,6 +16,7 @@ public class Dama extends Pieza{
     }
     public ArrayList<ArrayList<int[]>> obtenerListaDeCoordenadasPosibles(Movimiento movimiento){
         //ArrayList<ArrayList<int []>> coordenadasPosibles = new ArrayList<>();
+        coordenadasPosibles.clear();
         ArrayList<int []> aux = new ArrayList<>();
 
 

@@ -3,6 +3,11 @@ package ajedrez.partida;
 import ajedrez.piezas.*;
 import ajedrez.excepciones.*;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+
+
 public class Tablero {
     private static final int LARGO_TABLERO = 8;
     private static final int ANCHO_TABLERO = 8;
@@ -60,37 +65,116 @@ public class Tablero {
     }
 
     public void hacerMovimiento(Movimiento movimiento) {
-        try{
-            if (movimientoEsValido(movimiento)){
-                casillas[movimiento.coordenadasFinales[0]][movimiento.coordenadasFinales[1]].setPieza(casillas[movimiento.coordenadasIniciales[0]][movimiento.coordenadasIniciales[1]].getPieza());
+        try {
+            try {
+                if (movimientoEsValido(movimiento)) {
+                    if (movimientoEsUnaCaptura(movimiento)) {
+                        hacerCaptura(movimiento);
+                    } else {
+                        casillas[movimiento.coordenadasFinales[0]][movimiento.coordenadasFinales[1]].setPieza(casillas[movimiento.coordenadasIniciales[0]][movimiento.coordenadasIniciales[1]].getPieza());
+                        casillas[movimiento.getFilaInicial()][movimiento.getColumnaInicial()].quitarPieza();
+                    }
+
+
+                }
+            } catch (EnroqueCorto ec) {
+                hacerEnroqueCorto(movimiento);
+            } catch (EnroqueLargo el) {
+                hacerEnroqueLargo(movimiento);
+            } catch (CoronacionAvanzando ca) {
+                hacerCoronacionAvanzando(movimiento);
+            } catch (CoronacionCapturando cc) {
+                hacerCoronacionCapturando(movimiento);
             }
-        }catch (EnroqueCorto ec){
-            hacerEn
-        }catch (EnroqueLargo el){
+        } catch (MovimientoInvalido mi) {
+            System.out.println(mi.getMessage());
+        }
+    }
 
-        }catch (CoronacionAvanzando ca){
+    private void hacerCoronacionCapturando(Movimiento movimiento) {
+    }
 
-        }catch (CoronacionCapturando cc){
+    private void hacerCoronacionAvanzando(Movimiento movimiento) {
+    }
 
+    private void hacerEnroqueLargo(Movimiento movimiento) throws MovimientoInvalido {
+    }
+
+    private void hacerCaptura(Movimiento movimiento) {
+        if (casillas[movimiento.getFilaInicial()][movimiento.getColumnaInicial()].getPieza() instanceof Peon) {
+            if (movimiento.getColumnaInicial() != movimiento.getColumnaFinal()) {
+
+            }
+        }
+    }
+
+    private boolean movimientoEsUnaCaptura(Movimiento movimiento) throws MovimientoInvalido {
+        if (casillas[movimiento.getFilaInicial()][movimiento.getColumnaInicial()].getPieza() instanceof Peon) {
+            if (movimiento.getColumnaInicial() != movimiento.getColumnaFinal() && casillas[movimiento.getFilaFinal()][movimiento.getColumnaFinal()].hayPieza() && colorDePiezaDiferente(movimiento)) {
+                return true;
+            } else if (movimiento.getColumnaInicial() == movimiento.getColumnaFinal()) {
+                return false;
+            } else {
+                throw new MovimientoInvalido("Peon no puede capturar, porque no hay pieza");
+            }
+        }
+        return casillas[movimiento.getFilaFinal()][movimiento.getColumnaFinal()].hayPieza() && colorDePiezaDiferente(movimiento);
+    }
+
+    private boolean colorDePiezaDiferente(Movimiento movimiento) {
+        return casillas[movimiento.getFilaFinal()][movimiento.getColumnaFinal()].getPieza().getColor() != casillas[movimiento.getFilaInicial()][movimiento.getColumnaInicial()].getPieza().getColor();
+    }
+
+    private void hacerEnroqueCorto(Movimiento movimiento) {
+    }
+
+
+    private boolean movimientoEsValido(Movimiento movimiento) throws EnroqueCorto, EnroqueLargo, CoronacionCapturando, CoronacionAvanzando, MovimientoInvalido {
+        ArrayList<ArrayList<int[]>> listaDeCoordenadas = new ArrayList<>();
+        listaDeCoordenadas = casillas[movimiento.getFilaInicial()][movimiento.getColumnaInicial()].getPieza().obtenerListaDeCoordenadasPosibles(movimiento);
+
+        System.out.println(movimiento);
+        System.out.println();
+        for (int i = 0; i < listaDeCoordenadas.size(); i++) {
+            for (int j = 0; j < listaDeCoordenadas.get(i).size(); j++) {
+                if(estaListaContineLaJugadaFinal(listaDeCoordenadas.get(i), movimiento.getCoordenadasFinales())){
+                //if (listaDeCoordenadas.get(i).contains(movimiento.getCoordenadasFinales())) {
+                    //while (listaDeCoordenadas.get(i).get(j) != movimiento.getCoordenadasFinales()){
+                    System.out.println("XDDDDDDDDDDD");
+                    while (!(Arrays.equals(listaDeCoordenadas.get(i).get(j), movimiento.getCoordenadasFinales()))){
+                        if(casillas[listaDeCoordenadas.get(i).get(j)[0]][listaDeCoordenadas.get(i).get(j)[1]].hayPieza()){
+                            throw new MovimientoInvalido("Existe una pieza entre la coordenada inicial y final");
+                        }
+                    }
+
+
+                    //return colorDePiezaDiferente(movimiento);
+                }
+            }
         }
 
-    }
 
-    private void hacerEnroqueLargo() {
-    }
+        for (int i = 0; i < listaDeCoordenadas.size(); i++) {
+            System.out.print("Lista#"+i+"{");
+            for (int j = 0; j < listaDeCoordenadas.get(i).size(); j++) {
+                System.out.print("" + j + Arrays.toString(listaDeCoordenadas.get(i).get(j)));
+            }
+            System.out.print("}\n");
+        }
 
-    private void hacerEnroqueCorto() {
-
-    }
-
-    private void hacerCoronacion(Movimiento movimiento) {
-
-    }
-
-    private boolean movimientoEsValido(Movimiento movimiento) {
-
-        //ver la lista de mov y ver que el movimiento este en la lista
         return true;
     }
+
+    private boolean estaListaContineLaJugadaFinal(ArrayList<int[]> ints, int[] coordenadasFinales) {
+        for (int i =0; i < ints.size();i++){
+            if(ints.get(i)[0] == coordenadasFinales[0] && ints.get(i)[1] == coordenadasFinales[1]){
+                System.out.println("==================================================================");
+                return true;
+            }
+        }
+        return false;
+    }
+
+
 }
 

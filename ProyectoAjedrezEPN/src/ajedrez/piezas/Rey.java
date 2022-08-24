@@ -27,6 +27,7 @@ public class Rey extends Pieza {
 
     @Override
     public ArrayList<ArrayList<int[]>> obtenerListaDeCoordenadasPosibles(Movimiento movimiento) throws EnroqueCorto, EnroqueLargo{
+        coordenadasPosibles.clear();
         ArrayList<int []> aux = new ArrayList<>();
         if(primerMovimiento){
             if(color == ColorPiezas.BLANCAS){

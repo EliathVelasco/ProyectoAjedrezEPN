@@ -18,30 +18,31 @@ public class Torre extends Pieza {
     }
     public ArrayList<ArrayList<int[]>> obtenerListaDeCoordenadasPosibles(Movimiento movimiento){
         //ArrayList<ArrayList<int []>> coordenadasPosibles = new ArrayList<>();
+        coordenadasPosibles.clear();
         ArrayList<int []> aux = new ArrayList<>();
 
-        for (int i = movimiento.getFilaInicial(); i < 8; i++) {
+        for (int i = movimiento.getFilaInicial()+1; i < 8; i++) {
             aux.add(new int[]{i, movimiento.getColumnaInicial()});
         }
 
         coordenadasPosibles.add((ArrayList<int[]>) aux.clone());
         aux.clear();
 
-        for (int i = movimiento.getFilaInicial(); i >= 0; i--) {
+        for (int i = movimiento.getFilaInicial()-1; i >= 0; i--) {
             aux.add(new int[]{i, movimiento.getColumnaInicial()});
         }
 
         coordenadasPosibles.add((ArrayList<int[]>) aux.clone());
         aux.clear();
 
-        for (int i = movimiento.getColumnaInicial(); i < 8; i++) {
+        for (int i = movimiento.getColumnaInicial()+1; i < 8; i++) {
             aux.add(new int[]{movimiento.getFilaInicial(), i});
         }
 
         coordenadasPosibles.add((ArrayList<int[]>) aux.clone());
         aux.clear();
 
-        for (int i = movimiento.getColumnaInicial(); i >= 0; i--) {
+        for (int i = movimiento.getColumnaInicial()-1; i >= 0; i--) {
             aux.add(new int[]{movimiento.getFilaInicial(), i});
         }
 

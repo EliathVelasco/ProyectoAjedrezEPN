@@ -5,6 +5,4 @@ public class SintaxisInvalida extends Exception {
         super(message);
     }
 
-    public static class CoronacionAvanzando extends Exception {
-    }
 }
