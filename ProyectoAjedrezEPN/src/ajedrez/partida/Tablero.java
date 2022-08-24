@@ -130,32 +130,20 @@ public class Tablero {
 
 
     private boolean movimientoEsValido(Movimiento movimiento) throws EnroqueCorto, EnroqueLargo, CoronacionCapturando, CoronacionAvanzando, MovimientoInvalido {
-        ArrayList<ArrayList<int[]>> listaDeCoordenadas = new ArrayList<>();
+        ArrayList<ArrayList<int[]>> listaDeCoordenadas;
         listaDeCoordenadas = casillas[movimiento.getFilaInicial()][movimiento.getColumnaInicial()].getPieza().obtenerListaDeCoordenadasPosibles(movimiento);
-
         System.out.println(movimiento);
-        System.out.println();
         for (int i = 0; i < listaDeCoordenadas.size(); i++) {
             for (int j = 0; j < listaDeCoordenadas.get(i).size(); j++) {
-                if(estaListaContineLaJugadaFinal(listaDeCoordenadas.get(i), movimiento.getCoordenadasFinales())){
-                //if (listaDeCoordenadas.get(i).contains(movimiento.getCoordenadasFinales())) {
-                    //while (listaDeCoordenadas.get(i).get(j) != movimiento.getCoordenadasFinales()){
-                    System.out.println("XDDDDDDDDDDD");
-                    while (!(Arrays.equals(listaDeCoordenadas.get(i).get(j), movimiento.getCoordenadasFinales()))){
-                        if(casillas[listaDeCoordenadas.get(i).get(j)[0]][listaDeCoordenadas.get(i).get(j)[1]].hayPieza()){
-                            throw new MovimientoInvalido("Existe una pieza entre la coordenada inicial y final");
-                        }
+                if (estaListaContineLaJugadaFinal(listaDeCoordenadas.get(i), movimiento.getCoordenadasFinales())) {
+                    if (casillas[listaDeCoordenadas.get(i).get(j)[0]][listaDeCoordenadas.get(i).get(j)[1]].hayPieza()) {
+                        throw new MovimientoInvalido("Existe una pieza entre la coordenada inicial y final");
                     }
-
-
-                    //return colorDePiezaDiferente(movimiento);
                 }
             }
         }
-
-
         for (int i = 0; i < listaDeCoordenadas.size(); i++) {
-            System.out.print("Lista#"+i+"{");
+            System.out.print("Lista#" + i + "{");
             for (int j = 0; j < listaDeCoordenadas.get(i).size(); j++) {
                 System.out.print("" + j + Arrays.toString(listaDeCoordenadas.get(i).get(j)));
             }
@@ -166,9 +154,8 @@ public class Tablero {
     }
 
     private boolean estaListaContineLaJugadaFinal(ArrayList<int[]> ints, int[] coordenadasFinales) {
-        for (int i =0; i < ints.size();i++){
-            if(ints.get(i)[0] == coordenadasFinales[0] && ints.get(i)[1] == coordenadasFinales[1]){
-                System.out.println("==================================================================");
+        for (int i = 0; i < ints.size(); i++) {
+            if (ints.get(i)[0] == coordenadasFinales[0] && ints.get(i)[1] == coordenadasFinales[1]) {
                 return true;
             }
         }

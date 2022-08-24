@@ -1,6 +1,8 @@
 package ajedrez;
 import ajedrez.partida.*;
 import ajedrez.excepciones.PartidaFinalizadoException;
+
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Main {
