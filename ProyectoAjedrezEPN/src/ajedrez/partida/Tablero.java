@@ -44,6 +44,21 @@ public class Tablero {
     }
 
     private void hacerEnroqueLargo(Movimiento movimiento) throws MovimientoInvalido {
+        if(movimiento.getColorDeJugador() == ColorPiezas.BLANCAS){
+            ArrayList<int[]> listaACorroborar = new ArrayList<>();
+            listaACorroborar.add(new int[]{0,3});
+            listaACorroborar.add(new int[]{0,2});
+            listaACorroborar.add(new int[]{0,1});
+
+            hacerEnroque(movimiento, listaACorroborar);
+        }else{
+            ArrayList<int[]> listaACorroborar = new ArrayList<>();
+            listaACorroborar.add(new int[]{7,3});
+            listaACorroborar.add(new int[]{7,2});
+            listaACorroborar.add(new int[]{7,1});
+
+            hacerEnroque(movimiento, listaACorroborar);
+        }
     }
 
     private void capturarPieza(Movimiento movimiento) {
@@ -73,18 +88,18 @@ public class Tablero {
             listaACorroborar.add(new int[]{0,5});
             listaACorroborar.add(new int[]{0,6});
 
-            noSeComoPonerleAEsteMetodoXDD(movimiento, listaACorroborar);
+            hacerEnroque(movimiento, listaACorroborar);
         }else{
             ArrayList<int[]> listaACorroborar = new ArrayList<>();
             listaACorroborar.add(new int[]{7,5});
             listaACorroborar.add(new int[]{7,6});
 
-            noSeComoPonerleAEsteMetodoXDD(movimiento, listaACorroborar);
+            hacerEnroque(movimiento, listaACorroborar);
         }
 
     }
 
-    private void noSeComoPonerleAEsteMetodoXDD(Movimiento movimiento, ArrayList<int[]> listaACorroborar) throws MovimientoInvalido {
+    private void hacerEnroque(Movimiento movimiento, ArrayList<int[]> listaACorroborar) throws MovimientoInvalido {
         for (int i = 0; i < listaACorroborar.size(); i++) {
             if (casillas[listaACorroborar.get(i)[0]][listaACorroborar.get(i)[1]].hayPieza()) {
                 throw new MovimientoInvalido("No se puede realizar el enroque");
