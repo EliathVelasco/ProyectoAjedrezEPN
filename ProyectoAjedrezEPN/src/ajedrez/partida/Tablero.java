@@ -128,23 +128,18 @@ public class Tablero {
 
     private boolean movimientoEsValido(Movimiento movimiento) throws EnroqueCorto, EnroqueLargo, CoronacionCapturando, CoronacionAvanzando, MovimientoInvalido {
         System.out.println(movimiento);
-        if (!(hayPiezaParaMover(movimiento))){
+
+        if (!(hayPiezaParaMover(movimiento))) {
             throw new MovimientoInvalido("No hay pieza en la coordenada inicial pendejo");
         }
         if (!(laPiezaQueQuiereMoverEsDeSuColor(movimiento))) {
             throw new MovimientoInvalido("La pieza que quiere mover no es de su color");
         }
+
         ArrayList<ArrayList<int[]>> listaDeCoordenadas;
         listaDeCoordenadas = casillas[movimiento.getFilaInicial()][movimiento.getColumnaInicial()].getPieza().obtenerListaDeCoordenadasPosibles(movimiento);
-
-        for (int i = 0; i < listaDeCoordenadas.size(); i++) {
-            for (int j = 0; j < listaDeCoordenadas.get(i).size(); j++) {
-                if (estaListaContineLaJugadaFinal(listaDeCoordenadas.get(i), movimiento.getCoordenadasFinales())) {
-                    if (casillas[listaDeCoordenadas.get(i).get(j)[0]][listaDeCoordenadas.get(i).get(j)[1]].hayPieza()) {
-                        throw new MovimientoInvalido("Existe una pieza entre la coordenada inicial y final");
-                    }
-                }
-            }
+        if (!(laPiezaPuedeIrAEsaCoordenada(movimiento, listaDeCoordenadas))){
+            throw new MovimientoInvalido("La pieza no se puede mover a la coordenada ingresada");
         }
         for (int i = 0; i < listaDeCoordenadas.size(); i++) {
             System.out.print("Lista#" + i + "{");
@@ -153,8 +148,30 @@ public class Tablero {
             }
             System.out.print("}\n");
         }
+        for (int i = 0; i < listaDeCoordenadas.size(); i++) {
+            if (estaListaContineLaJugadaFinal(listaDeCoordenadas.get(i), movimiento.getCoordenadasFinales())) {
+                for (int j = 0; j < listaDeCoordenadas.get(i).size(); j++) {
+                    if (casillas[listaDeCoordenadas.get(i).get(j)[0]][listaDeCoordenadas.get(i).get(j)[1]].hayPieza()) {
+                        throw new MovimientoInvalido("Existe una pieza entre la coordenada inicial y final");
+                    }
+                    if (Arrays.equals(listaDeCoordenadas.get(i).get(j), movimiento.getCoordenadasFinales())){
+                        break;
+                    }
+                }
+            }
+        }
+
 
         return true;
+    }
+
+    private boolean laPiezaPuedeIrAEsaCoordenada(Movimiento movimiento, ArrayList<ArrayList<int[]>> listaDeCoordenadas) {
+        for (int i = 0; i < listaDeCoordenadas.size(); i++) {
+            if (estaListaContineLaJugadaFinal(listaDeCoordenadas.get(i), movimiento.getCoordenadasFinales())) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private boolean hayPiezaParaMover(Movimiento movimiento) {
@@ -173,7 +190,5 @@ public class Tablero {
         }
         return false;
     }
-
-
 }
 
