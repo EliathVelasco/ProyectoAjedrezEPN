@@ -65,4 +65,8 @@ public class Movimiento {
                 ", coordenadasFinales=" + Arrays.toString(coordenadasFinales) +"}";
 
     }
+
+    public ColorPiezas getColorDeJugador() {
+        return jugadorQueRealizoLaJugada.getColor();
+    }
 }

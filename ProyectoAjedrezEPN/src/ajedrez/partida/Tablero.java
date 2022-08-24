@@ -5,7 +5,6 @@ import ajedrez.excepciones.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 
 
 public class Tablero {
@@ -64,31 +63,29 @@ public class Tablero {
         return tableroCompleto;
     }
 
-    public void hacerMovimiento(Movimiento movimiento) {
+    public void hacerMovimiento(Movimiento movimiento) throws MovimientoInvalido {
+
         try {
-            try {
-                if (movimientoEsValido(movimiento)) {
-                    if (movimientoEsUnaCaptura(movimiento)) {
-                        hacerCaptura(movimiento);
-                    } else {
-                        casillas[movimiento.coordenadasFinales[0]][movimiento.coordenadasFinales[1]].setPieza(casillas[movimiento.coordenadasIniciales[0]][movimiento.coordenadasIniciales[1]].getPieza());
-                        casillas[movimiento.getFilaInicial()][movimiento.getColumnaInicial()].quitarPieza();
-                    }
-
-
+            if (movimientoEsValido(movimiento)) {
+                if (movimientoEsUnaCaptura(movimiento)) {
+                    hacerCaptura(movimiento);
+                } else {
+                    casillas[movimiento.coordenadasFinales[0]][movimiento.coordenadasFinales[1]].setPieza(casillas[movimiento.coordenadasIniciales[0]][movimiento.coordenadasIniciales[1]].getPieza());
+                    casillas[movimiento.getFilaInicial()][movimiento.getColumnaInicial()].quitarPieza();
                 }
-            } catch (EnroqueCorto ec) {
-                hacerEnroqueCorto(movimiento);
-            } catch (EnroqueLargo el) {
-                hacerEnroqueLargo(movimiento);
-            } catch (CoronacionAvanzando ca) {
-                hacerCoronacionAvanzando(movimiento);
-            } catch (CoronacionCapturando cc) {
-                hacerCoronacionCapturando(movimiento);
+
+
             }
-        } catch (MovimientoInvalido mi) {
-            System.out.println(mi.getMessage());
+        } catch (EnroqueCorto ec) {
+            hacerEnroqueCorto(movimiento);
+        } catch (EnroqueLargo el) {
+            hacerEnroqueLargo(movimiento);
+        } catch (CoronacionAvanzando ca) {
+            hacerCoronacionAvanzando(movimiento);
+        } catch (CoronacionCapturando cc) {
+            hacerCoronacionCapturando(movimiento);
         }
+
     }
 
     private void hacerCoronacionCapturando(Movimiento movimiento) {
@@ -130,9 +127,16 @@ public class Tablero {
 
 
     private boolean movimientoEsValido(Movimiento movimiento) throws EnroqueCorto, EnroqueLargo, CoronacionCapturando, CoronacionAvanzando, MovimientoInvalido {
+        System.out.println(movimiento);
+        if (!(hayPiezaParaMover(movimiento))){
+            throw new MovimientoInvalido("No hay pieza en la coordenada inicial pendejo");
+        }
+        if (!(laPiezaQueQuiereMoverEsDeSuColor(movimiento))) {
+            throw new MovimientoInvalido("La pieza que quiere mover no es de su color");
+        }
         ArrayList<ArrayList<int[]>> listaDeCoordenadas;
         listaDeCoordenadas = casillas[movimiento.getFilaInicial()][movimiento.getColumnaInicial()].getPieza().obtenerListaDeCoordenadasPosibles(movimiento);
-        System.out.println(movimiento);
+
         for (int i = 0; i < listaDeCoordenadas.size(); i++) {
             for (int j = 0; j < listaDeCoordenadas.get(i).size(); j++) {
                 if (estaListaContineLaJugadaFinal(listaDeCoordenadas.get(i), movimiento.getCoordenadasFinales())) {
@@ -151,6 +155,14 @@ public class Tablero {
         }
 
         return true;
+    }
+
+    private boolean hayPiezaParaMover(Movimiento movimiento) {
+        return casillas[movimiento.getFilaInicial()][movimiento.getColumnaInicial()].hayPieza();
+    }
+
+    private boolean laPiezaQueQuiereMoverEsDeSuColor(Movimiento movimiento) {
+        return movimiento.getColorDeJugador() == casillas[movimiento.getFilaInicial()][movimiento.getColumnaInicial()].getPieza().getColor();
     }
 
     private boolean estaListaContineLaJugadaFinal(ArrayList<int[]> ints, int[] coordenadasFinales) {

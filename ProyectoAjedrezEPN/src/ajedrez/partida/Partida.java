@@ -42,6 +42,8 @@ public class Partida {
                     colorTurnoActual = ColorPiezas.NEGRAS;
                 }catch(SintaxisInvalida si){
                     System.out.println(si.getMessage());
+                }catch(MovimientoInvalido mi){
+                    System.out.println(mi.getMessage());
                 }
             }
 
@@ -52,6 +54,8 @@ public class Partida {
                     colorTurnoActual = ColorPiezas.BLANCAS;
                 }catch(SintaxisInvalida si){
                     System.out.println(si.getMessage());
+                }catch(MovimientoInvalido mi){
+                    System.out.println(mi.getMessage());
                 }
             }
         }
