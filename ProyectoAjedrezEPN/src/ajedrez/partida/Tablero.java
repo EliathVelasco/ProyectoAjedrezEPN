@@ -72,18 +72,37 @@ public class Tablero {
             ArrayList<int[]> listaACorroborar = new ArrayList<>();
             listaACorroborar.add(new int[]{0,5});
             listaACorroborar.add(new int[]{0,6});
-            listaACorroborar.add(new int[]{0,7});
 
-            for (int i = 0; i < listaACorroborar.size(); i++) {
-                if (casillas[listaACorroborar.get(i)[0]][listaACorroborar.get(i)[1]].hayPieza()) {
-                    throw new MovimientoInvalido("Existe una pieza entre la coordenada inicial y final");
-                }
-                if (Arrays.equals(listaACorroborar.get(i), movimiento.getCoordenadasFinales())) {
-                    break;
-                }
+            noSeComoPonerleAEsteMetodoXDD(movimiento, listaACorroborar);
+        }else{
+            ArrayList<int[]> listaACorroborar = new ArrayList<>();
+            listaACorroborar.add(new int[]{7,5});
+            listaACorroborar.add(new int[]{7,6});
+
+            noSeComoPonerleAEsteMetodoXDD(movimiento, listaACorroborar);
+        }
+
+    }
+
+    private void noSeComoPonerleAEsteMetodoXDD(Movimiento movimiento, ArrayList<int[]> listaACorroborar) throws MovimientoInvalido {
+        for (int i = 0; i < listaACorroborar.size(); i++) {
+            if (casillas[listaACorroborar.get(i)[0]][listaACorroborar.get(i)[1]].hayPieza()) {
+                throw new MovimientoInvalido("No se puede realizar el enroque");
             }
         }
 
+        if(!esElPrimerMovimientoDelReyYLaTorre(movimiento)){
+            throw new MovimientoInvalido("No se puede realizar el enroque");
+        }
+
+        casillas[movimiento.coordenadasFinales[0]][movimiento.coordenadasFinales[1]-1].setPieza(casillas[movimiento.coordenadasIniciales[0]][movimiento.coordenadasIniciales[1]].getPieza());
+        casillas[movimiento.coordenadasIniciales[0]][movimiento.coordenadasIniciales[1]+1].setPieza(casillas[movimiento.coordenadasFinales[0]][movimiento.coordenadasFinales[1]].getPieza());
+        casillas[movimiento.getFilaInicial()][movimiento.getColumnaInicial()].quitarPieza();
+        casillas[movimiento.getFilaFinal()][movimiento.getColumnaFinal()].quitarPieza();
+    }
+
+    private boolean esElPrimerMovimientoDelReyYLaTorre(Movimiento movimiento) {
+        return ((Rey) casillas[movimiento.getFilaInicial()][movimiento.getColumnaInicial()].getPieza()).esSuPrimerMovimiento() && casillas[movimiento.getFilaFinal()][movimiento.getColumnaFinal()].getPieza() instanceof Torre && ((Torre) casillas[movimiento.getFilaFinal()][movimiento.getColumnaFinal()].getPieza()).esSuPrimerMovimiento();
     }
 
 

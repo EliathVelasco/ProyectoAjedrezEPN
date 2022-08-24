@@ -70,4 +70,8 @@ public class Rey extends Pieza {
 
         return coordenadasPosibles;
     }
+
+    public boolean esSuPrimerMovimiento(){
+        return primerMovimiento;
+    }
 }

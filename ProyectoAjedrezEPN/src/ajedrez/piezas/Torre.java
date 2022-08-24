@@ -50,5 +50,7 @@ public class Torre extends Pieza {
 
         return coordenadasPosibles;
     }
-
+    public boolean esSuPrimerMovimiento(){
+        return primerMovimiento;
+    }
 }
