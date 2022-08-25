@@ -20,22 +20,25 @@ public class Peon extends Pieza {
         }
     }
 
-    public ArrayList<ArrayList<int[]>> obtenerListaDeCoordenadasPosibles (Movimiento movimiento) throws CoronacionAvanzando, CoronacionCapturando{
+    public ArrayList<ArrayList<int[]>> obtenerListaDeCoordenadasPosibles (Movimiento movimiento) throws CoronacionAvanzando, CoronacionCapturando, MovimientoInvalido {
+        if (!(movimiento.getColumnaInicial()+1 == movimiento.getFilaFinal() || movimiento.getColumnaInicial()-1 == movimiento.getFilaFinal() || movimiento.getColumnaInicial() == movimiento.getFilaFinal())){
+            throw new MovimientoInvalido("Jugada invalida");
+        }
 
         if (color == ColorPiezas.BLANCAS) {
             agregarMovimientosPeonesBlancas(movimiento);
             buscarMovimientosDeCapturaBlanca(movimiento);
-            if (movimiento.getFilaFinal() == 7) {
+            if (movimiento.getFilaFinal() == 7 && movimiento.getFilaInicial() == 6) {
                 asignarTipoDeCoronacion(movimiento);
             }
+
         }else{
             agregarMovimientosPeonesNegros(movimiento);
             buscarMovimientosDeCapturaNegras(movimiento);
-            if (movimiento.getFilaFinal() == 0){
+            if (movimiento.getFilaFinal() == 0 && movimiento.getFilaInicial() == 1){
                 asignarTipoDeCoronacion(movimiento);
             }
         }
-
         return coordenadasPosibles;
     }
 

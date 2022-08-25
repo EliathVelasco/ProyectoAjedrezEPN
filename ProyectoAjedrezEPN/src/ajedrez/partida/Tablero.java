@@ -48,8 +48,6 @@ public class Tablero {
         if (casillas[movimiento.coordenadasFinales[0]][movimiento.coordenadasFinales[1]].getPieza() instanceof Rey){
             ((Rey) casillas[movimiento.getFilaFinal()][movimiento.getColumnaFinal()].getPieza()).quitarPrimerMovimiento();
         }
-
-
     }
 
     private void hacerCoronacionCapturando(Movimiento movimiento) {
