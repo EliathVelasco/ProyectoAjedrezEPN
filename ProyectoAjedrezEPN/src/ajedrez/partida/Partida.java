@@ -64,6 +64,8 @@ public class Partida {
         }catch (GuardarLaPartida gp){
             String partidaAGuardar = "";
             partidaAGuardar += tablero.guardarPartida();
+            partidaAGuardar += colorTurnoActual+"/";
+            System.out.println(partidaAGuardar);
         }/*catch (PartidaTerminada pt){
 
         }*/

@@ -111,4 +111,8 @@ public class Peon extends Pieza {
         coordenadasPosibles.add((ArrayList<int[]>) aux.clone());
         aux.clear();
     }
+
+    public boolean esSuPrimerMovimiento() {
+        return primerMovimiento;
+    }
 }

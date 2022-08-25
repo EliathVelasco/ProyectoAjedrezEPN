@@ -2,6 +2,7 @@ package ajedrez.partida;
 
 import ajedrez.piezas.*;
 import ajedrez.excepciones.*;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -10,6 +11,7 @@ public class Tablero {
     private static final int LARGO_TABLERO = 8;
     private static final int ANCHO_TABLERO = 8;
     private Casilla[][] casillas;
+    private ArrayList<Pieza> piezas;
 
     public Tablero() {
         this.casillas = new Casilla[LARGO_TABLERO][ANCHO_TABLERO];
@@ -34,23 +36,46 @@ public class Tablero {
             hacerCoronacionAvanzando(movimiento);
         } catch (CoronacionCapturando cc) {
             hacerCoronacionCapturando(movimiento);
+        } finally{
+            partidarTermino(movimiento);
         }
     }
 
+    private void partidarTermino(Movimiento movimiento) {
+        int [] posicionDelRey = new int[2];
+        for (int i = 0; i < 8; i++) {
+            if(encontrarAlReyEnEsaFila(movimiento, posicionDelRey, i)){
+                break;
+            }
+        }
+        
+    }
+
+    private boolean encontrarAlReyEnEsaFila(Movimiento movimiento, int[] posicionDelRey, int i) {
+        for (int j = 0; j < 8; j++) {
+            if (casillas[i][j].hayPieza() && casillas[i][j].getPieza().getColor() != movimiento.getColorDeJugador() && casillas[i][j].getPieza() instanceof Rey ) {
+                posicionDelRey[0] = i;
+                posicionDelRey[1] = j;
+                return true;
+            }
+        }
+        return false;
+    }
+
     private void quitarPrimerMovimiento(Movimiento movimiento) {
-        if (casillas[movimiento.coordenadasFinales[0]][movimiento.coordenadasFinales[1]].getPieza() instanceof Peon){
+        if (casillas[movimiento.coordenadasFinales[0]][movimiento.coordenadasFinales[1]].getPieza() instanceof Peon) {
             ((Peon) casillas[movimiento.getFilaFinal()][movimiento.getColumnaFinal()].getPieza()).quitarPrimerMovimiento();
         }
-        if (casillas[movimiento.coordenadasFinales[0]][movimiento.coordenadasFinales[1]].getPieza() instanceof Torre){
+        if (casillas[movimiento.coordenadasFinales[0]][movimiento.coordenadasFinales[1]].getPieza() instanceof Torre) {
             ((Torre) casillas[movimiento.getFilaFinal()][movimiento.getColumnaFinal()].getPieza()).quitarPrimerMovimiento();
         }
-        if (casillas[movimiento.coordenadasFinales[0]][movimiento.coordenadasFinales[1]].getPieza() instanceof Rey){
+        if (casillas[movimiento.coordenadasFinales[0]][movimiento.coordenadasFinales[1]].getPieza() instanceof Rey) {
             ((Rey) casillas[movimiento.getFilaFinal()][movimiento.getColumnaFinal()].getPieza()).quitarPrimerMovimiento();
         }
     }
 
     private void hacerCoronacionCapturando(Movimiento movimiento) throws MovimientoInvalido {
-        if (casillas[movimiento.getFilaFinal()][movimiento.getColumnaFinal()].hayPieza() && casillas[movimiento.getFilaFinal()][movimiento.getColumnaFinal()].getPieza().getColor() != movimiento.getColorDeJugador()){
+        if (casillas[movimiento.getFilaFinal()][movimiento.getColumnaFinal()].hayPieza() && casillas[movimiento.getFilaFinal()][movimiento.getColumnaFinal()].getPieza().getColor() != movimiento.getColorDeJugador()) {
             mostrarMenuParaEscogerLaPiezaALaQueQuiereCoronar();
         } else {
             throw new MovimientoInvalido("Movimiento invalido");
@@ -58,9 +83,9 @@ public class Tablero {
     }
 
     private void hacerCoronacionAvanzando(Movimiento movimiento) throws MovimientoInvalido {
-        if (!(casillas[movimiento.getFilaFinal()][movimiento.getColumnaFinal()].hayPieza())){
+        if (!(casillas[movimiento.getFilaFinal()][movimiento.getColumnaFinal()].hayPieza())) {
             mostrarMenuParaEscogerLaPiezaALaQueQuiereCoronar();
-        }else{
+        } else {
             throw new MovimientoInvalido("No se puede avanzar el peon, hay una pieza adelante");
         }
     }
@@ -69,18 +94,18 @@ public class Tablero {
     }
 
     private void hacerEnroqueLargo(Movimiento movimiento) throws MovimientoInvalido {
-        if(movimiento.getColorDeJugador() == ColorPiezas.BLANCAS){
+        if (movimiento.getColorDeJugador() == ColorPiezas.BLANCAS) {
             ArrayList<int[]> listaACorroborar = new ArrayList<>();
-            listaACorroborar.add(new int[]{0,3});
-            listaACorroborar.add(new int[]{0,2});
-            listaACorroborar.add(new int[]{0,1});
+            listaACorroborar.add(new int[]{0, 3});
+            listaACorroborar.add(new int[]{0, 2});
+            listaACorroborar.add(new int[]{0, 1});
 
             hacerEnroque(movimiento, listaACorroborar);
-        }else{
+        } else {
             ArrayList<int[]> listaACorroborar = new ArrayList<>();
-            listaACorroborar.add(new int[]{7,3});
-            listaACorroborar.add(new int[]{7,2});
-            listaACorroborar.add(new int[]{7,1});
+            listaACorroborar.add(new int[]{7, 3});
+            listaACorroborar.add(new int[]{7, 2});
+            listaACorroborar.add(new int[]{7, 1});
 
             hacerEnroque(movimiento, listaACorroborar);
         }
@@ -100,22 +125,21 @@ public class Tablero {
     }
 
 
-
     private boolean colorDePiezaDiferente(Movimiento movimiento) {
         return casillas[movimiento.getFilaFinal()][movimiento.getColumnaFinal()].getPieza().getColor() != casillas[movimiento.getFilaInicial()][movimiento.getColumnaInicial()].getPieza().getColor();
     }
 
     private void hacerEnroqueCorto(Movimiento movimiento) throws MovimientoInvalido {
-        if(movimiento.getColorDeJugador() == ColorPiezas.BLANCAS){
+        if (movimiento.getColorDeJugador() == ColorPiezas.BLANCAS) {
             ArrayList<int[]> listaACorroborar = new ArrayList<>();
-            listaACorroborar.add(new int[]{0,5});
-            listaACorroborar.add(new int[]{0,6});
+            listaACorroborar.add(new int[]{0, 5});
+            listaACorroborar.add(new int[]{0, 6});
 
             hacerEnroque(movimiento, listaACorroborar);
-        }else{
+        } else {
             ArrayList<int[]> listaACorroborar = new ArrayList<>();
-            listaACorroborar.add(new int[]{7,5});
-            listaACorroborar.add(new int[]{7,6});
+            listaACorroborar.add(new int[]{7, 5});
+            listaACorroborar.add(new int[]{7, 6});
 
             hacerEnroque(movimiento, listaACorroborar);
         }
@@ -128,12 +152,12 @@ public class Tablero {
             }
         }
 
-        if(!esElPrimerMovimientoDelReyYLaTorre(movimiento)){
+        if (!esElPrimerMovimientoDelReyYLaTorre(movimiento)) {
             throw new MovimientoInvalido("No se puede realizar el enroque");
         }
 
-        casillas[movimiento.coordenadasFinales[0]][movimiento.coordenadasFinales[1]-1].setPieza(casillas[movimiento.coordenadasIniciales[0]][movimiento.coordenadasIniciales[1]].getPieza());
-        casillas[movimiento.coordenadasIniciales[0]][movimiento.coordenadasIniciales[1]+1].setPieza(casillas[movimiento.coordenadasFinales[0]][movimiento.coordenadasFinales[1]].getPieza());
+        casillas[movimiento.coordenadasFinales[0]][movimiento.coordenadasFinales[1] - 1].setPieza(casillas[movimiento.coordenadasIniciales[0]][movimiento.coordenadasIniciales[1]].getPieza());
+        casillas[movimiento.coordenadasIniciales[0]][movimiento.coordenadasIniciales[1] + 1].setPieza(casillas[movimiento.coordenadasFinales[0]][movimiento.coordenadasFinales[1]].getPieza());
         casillas[movimiento.getFilaInicial()][movimiento.getColumnaInicial()].quitarPieza();
         casillas[movimiento.getFilaFinal()][movimiento.getColumnaFinal()].quitarPieza();
     }
@@ -206,6 +230,7 @@ public class Tablero {
         }
         return false;
     }
+
     private boolean verSiElPeonRealizaUnaCaptura(Movimiento movimiento) throws MovimientoInvalido {
         if (movimiento.getColumnaInicial() != movimiento.getColumnaFinal() && casillas[movimiento.getFilaFinal()][movimiento.getColumnaFinal()].hayPieza() && colorDePiezaDiferente(movimiento)) {
             return true;
@@ -215,17 +240,20 @@ public class Tablero {
             throw new MovimientoInvalido("Peon no puede capturar, porque no hay pieza");
         }
     }
+
     private void moverPieza(Movimiento movimiento) {
         casillas[movimiento.coordenadasFinales[0]][movimiento.coordenadasFinales[1]].setPieza(casillas[movimiento.coordenadasIniciales[0]][movimiento.coordenadasIniciales[1]].getPieza());
         casillas[movimiento.getFilaInicial()][movimiento.getColumnaInicial()].quitarPieza();
     }
+
     private void dejarTableroVacio() {
-        for (int i=0;i<LARGO_TABLERO;i++){
-            for (int j =0; j<ANCHO_TABLERO;j++){
+        for (int i = 0; i < LARGO_TABLERO; i++) {
+            for (int j = 0; j < ANCHO_TABLERO; j++) {
                 casillas[i][j] = new Casilla();
             }
         }
     }
+
     private void colocarPiezasEnElTablero() {
         casillas[0][0] = new Casilla(new Torre(ColorPiezas.BLANCAS));
         casillas[0][7] = new Casilla(new Torre(ColorPiezas.BLANCAS));
@@ -255,6 +283,7 @@ public class Tablero {
             }
         }
     }
+
     @Override
     public String toString() {
         String tableroCompleto = "";
@@ -279,11 +308,34 @@ public class Tablero {
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
                 if (casillas[i][j].hayPieza()) {
-                    guardarPartida += "" + casillas[i][j].getPieza() + i + j +'\n';
+                    guardarPartida += "" + casillas[i][j].getPieza() + i + j;
+                    if (casillas[i][j].getPieza() instanceof Rey) {
+                        if(!(((Rey) casillas[i][j].getPieza()).esSuPrimerMovimiento())){
+                            guardarPartida += "f";
+                        }
+                    }
+                    if (casillas[i][j].getPieza() instanceof Torre) {
+                        if(!(((Torre) casillas[i][j].getPieza()).esSuPrimerMovimiento())){
+                            guardarPartida += "f";
+                        }
+                    }
+                    if (casillas[i][j].getPieza() instanceof Peon) {
+                        if(!(((Peon) casillas[i][j].getPieza()).esSuPrimerMovimiento())){
+                            guardarPartida += "f";
+                        }
+                    }
+                    guardarPartida += "/";
                 }
             }
         }
+
+        guardarPartida += obtenerPiezasCapturadas();
         return guardarPartida;
+
+    }
+
+    private String obtenerPiezasCapturadas() {
+        return "";
     }
 }
 
