@@ -50,11 +50,23 @@ public class Tablero {
         }
     }
 
-    private void hacerCoronacionCapturando(Movimiento movimiento) {
-        
+    private void hacerCoronacionCapturando(Movimiento movimiento) throws MovimientoInvalido {
+        if (casillas[movimiento.getFilaFinal()][movimiento.getColumnaFinal()].hayPieza() && casillas[movimiento.getFilaFinal()][movimiento.getColumnaFinal()].getPieza().getColor() != movimiento.getColorDeJugador()){
+            mostrarMenuParaEscogerLaPiezaALaQueQuiereCoronar();
+        } else {
+            throw new MovimientoInvalido("Movimiento invalido");
+        }
     }
 
-    private void hacerCoronacionAvanzando(Movimiento movimiento) {
+    private void hacerCoronacionAvanzando(Movimiento movimiento) throws MovimientoInvalido {
+        if (!(casillas[movimiento.getFilaFinal()][movimiento.getColumnaFinal()].hayPieza())){
+            mostrarMenuParaEscogerLaPiezaALaQueQuiereCoronar();
+        }else{
+            throw new MovimientoInvalido("No se puede avanzar el peon, hay una pieza adelante");
+        }
+    }
+
+    private void mostrarMenuParaEscogerLaPiezaALaQueQuiereCoronar() {
     }
 
     private void hacerEnroqueLargo(Movimiento movimiento) throws MovimientoInvalido {
