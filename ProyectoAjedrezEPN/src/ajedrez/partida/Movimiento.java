@@ -8,7 +8,10 @@ public class Movimiento {
     protected final int [] coordenadasFinales = new int[2];
     private final Jugador jugadorQueRealizoLaJugada;
 
-    public Movimiento(String jugada, Jugador jugador) throws SintaxisInvalida {
+    public Movimiento(String jugada, Jugador jugador) throws SintaxisInvalida, GuardarLaPartida {
+        if(jugada.equals("Guardar")){
+            throw new GuardarLaPartida();
+        }
         if (!(Pattern.matches("[a-h][1-8][a-h][1-8]|(0-0)|(0-0-0)", jugada.toLowerCase()))) {
             throw new SintaxisInvalida("Sintaxis no valida");
         }

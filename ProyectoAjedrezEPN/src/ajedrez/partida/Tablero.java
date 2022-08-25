@@ -2,7 +2,6 @@ package ajedrez.partida;
 
 import ajedrez.piezas.*;
 import ajedrez.excepciones.*;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -273,6 +272,18 @@ public class Tablero {
         }
 
         return tableroCompleto;
+    }
+
+    public String guardarPartida() {
+        String guardarPartida = "";
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                if (casillas[i][j].hayPieza()) {
+                    guardarPartida += "" + casillas[i][j].getPieza() + i + j +'\n';
+                }
+            }
+        }
+        return guardarPartida;
     }
 }
 
