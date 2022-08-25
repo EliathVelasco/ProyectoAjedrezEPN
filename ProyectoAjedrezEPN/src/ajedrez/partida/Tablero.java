@@ -25,6 +25,7 @@ public class Tablero {
                 } else {
                     moverPieza(movimiento);
                 }
+                quitarPrimerMovimiento(movimiento);
             }
         } catch (EnroqueCorto ec) {
             hacerEnroqueCorto(movimiento);
@@ -37,7 +38,22 @@ public class Tablero {
         }
     }
 
+    private void quitarPrimerMovimiento(Movimiento movimiento) {
+        if (casillas[movimiento.coordenadasFinales[0]][movimiento.coordenadasFinales[1]].getPieza() instanceof Peon){
+            ((Peon) casillas[movimiento.getFilaFinal()][movimiento.getColumnaFinal()].getPieza()).quitarPrimerMovimiento();
+        }
+        if (casillas[movimiento.coordenadasFinales[0]][movimiento.coordenadasFinales[1]].getPieza() instanceof Torre){
+            ((Torre) casillas[movimiento.getFilaFinal()][movimiento.getColumnaFinal()].getPieza()).quitarPrimerMovimiento();
+        }
+        if (casillas[movimiento.coordenadasFinales[0]][movimiento.coordenadasFinales[1]].getPieza() instanceof Rey){
+            ((Rey) casillas[movimiento.getFilaFinal()][movimiento.getColumnaFinal()].getPieza()).quitarPrimerMovimiento();
+        }
+
+
+    }
+
     private void hacerCoronacionCapturando(Movimiento movimiento) {
+        
     }
 
     private void hacerCoronacionAvanzando(Movimiento movimiento) {
@@ -62,11 +78,9 @@ public class Tablero {
     }
 
     private void capturarPieza(Movimiento movimiento) {
-        if (casillas[movimiento.getFilaInicial()][movimiento.getColumnaInicial()].getPieza() instanceof Peon) {
-            if (movimiento.getColumnaInicial() != movimiento.getColumnaFinal()) {
+        casillas[movimiento.coordenadasFinales[0]][movimiento.coordenadasFinales[1]].setPieza(casillas[movimiento.coordenadasIniciales[0]][movimiento.coordenadasIniciales[1]].getPieza());
+        casillas[movimiento.getFilaInicial()][movimiento.getColumnaInicial()].quitarPieza();
 
-            }
-        }
     }
 
     private boolean movimientoEsUnaCaptura(Movimiento movimiento) throws MovimientoInvalido {
@@ -96,7 +110,6 @@ public class Tablero {
 
             hacerEnroque(movimiento, listaACorroborar);
         }
-
     }
 
     private void hacerEnroque(Movimiento movimiento, ArrayList<int[]> listaACorroborar) throws MovimientoInvalido {
@@ -146,12 +159,13 @@ public class Tablero {
         for (int i = 0; i < listaDeCoordenadas.size(); i++) {
             if (estaListaContineLaJugadaFinal(listaDeCoordenadas.get(i), movimiento.getCoordenadasFinales())) {
                 for (int j = 0; j < listaDeCoordenadas.get(i).size(); j++) {
-                    if (casillas[listaDeCoordenadas.get(i).get(j)[0]][listaDeCoordenadas.get(i).get(j)[1]].hayPieza()) {
-                        throw new MovimientoInvalido("Existe una pieza entre la coordenada inicial y final");
-                    }
                     if (Arrays.equals(listaDeCoordenadas.get(i).get(j), movimiento.getCoordenadasFinales())) {
                         break;
                     }
+                    if (casillas[listaDeCoordenadas.get(i).get(j)[0]][listaDeCoordenadas.get(i).get(j)[1]].hayPieza()) {
+                        throw new MovimientoInvalido("Existe una pieza entre la coordenada inicial y final");
+                    }
+
                 }
             }
         }

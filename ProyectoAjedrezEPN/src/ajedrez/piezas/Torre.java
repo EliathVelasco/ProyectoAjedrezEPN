@@ -53,4 +53,8 @@ public class Torre extends Pieza {
     public boolean esSuPrimerMovimiento(){
         return primerMovimiento;
     }
+
+    public void quitarPrimerMovimiento() {
+        primerMovimiento = false;
+    }
 }

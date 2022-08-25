@@ -75,4 +75,8 @@ public class Rey extends Pieza {
     public boolean esSuPrimerMovimiento(){
         return primerMovimiento;
     }
+
+    public void quitarPrimerMovimiento() {
+        primerMovimiento = false;
+    }
 }
