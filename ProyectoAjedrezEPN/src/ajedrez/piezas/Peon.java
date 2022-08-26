@@ -21,9 +21,9 @@ public class Peon extends Pieza {
     }
 
     public ArrayList<ArrayList<int[]>> obtenerListaDeCoordenadasPosibles (Movimiento movimiento) throws CoronacionAvanzando, CoronacionCapturando, MovimientoInvalido {
-        if (movimiento.getColumnaInicial()+1 == movimiento.getFilaFinal() || movimiento.getColumnaInicial()-1 == movimiento.getFilaFinal() || movimiento.getColumnaInicial() == movimiento.getFilaFinal()){
+        /*if (movimiento.getColumnaInicial()+1 == movimiento.getColumnaFinal() || movimiento.getColumnaInicial()-1 == movimiento.getColumnaFinal() || movimiento.getColumnaInicial() == movimiento.getColumnaFinal()){
             throw new MovimientoInvalido("Jugada invalida");
-        }
+        }*/
 
         if (color == ColorPiezas.BLANCAS) {
             agregarMovimientosPeonesBlancas(movimiento);

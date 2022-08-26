@@ -36,24 +36,24 @@ public class Tablero {
             hacerCoronacionAvanzando(movimiento);
         } catch (CoronacionCapturando cc) {
             hacerCoronacionCapturando(movimiento);
-        } finally{
+        } finally {
             partidarTermino(movimiento);
         }
     }
 
     private void partidarTermino(Movimiento movimiento) {
-        int [] posicionDelRey = new int[2];
+        int[] posicionDelRey = new int[2];
         for (int i = 0; i < 8; i++) {
-            if(encontrarAlReyEnEsaFila(movimiento, posicionDelRey, i)){
+            if (encontrarAlReyEnEsaFila(movimiento, posicionDelRey, i)) {
                 break;
             }
         }
-        
+
     }
 
     private boolean encontrarAlReyEnEsaFila(Movimiento movimiento, int[] posicionDelRey, int i) {
         for (int j = 0; j < 8; j++) {
-            if (casillas[i][j].hayPieza() && casillas[i][j].getPieza().getColor() != movimiento.getColorDeJugador() && casillas[i][j].getPieza() instanceof Rey ) {
+            if (casillas[i][j].hayPieza() && casillas[i][j].getPieza().getColor() != movimiento.getColorDeJugador() && casillas[i][j].getPieza() instanceof Rey) {
                 posicionDelRey[0] = i;
                 posicionDelRey[1] = j;
                 return true;
@@ -290,10 +290,16 @@ public class Tablero {
         tableroCompleto += " a  b  c  d  e  f  g  h \n";
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
-                if (casillas[i][j].hayPieza()) {
-                    tableroCompleto += "[" + casillas[i][j] + "]";
-                } else {
-                    tableroCompleto += "[ ]";
+                switch (casillas[i][j].queHayEnLaCasilla()) {
+                    case 1:
+                        tableroCompleto += "[" + casillas[i][j] + "]";
+                        break;
+                    case 2:
+                        tableroCompleto += "[*]";
+                        break;
+                    case 0:
+                        tableroCompleto += "[ ]";
+                        break;
                 }
             }
             tableroCompleto += (i + 1);
@@ -310,17 +316,17 @@ public class Tablero {
                 if (casillas[i][j].hayPieza()) {
                     guardarPartida += "" + casillas[i][j].getPieza() + i + j;
                     if (casillas[i][j].getPieza() instanceof Rey) {
-                        if(!(((Rey) casillas[i][j].getPieza()).esSuPrimerMovimiento())){
+                        if (!(((Rey) casillas[i][j].getPieza()).esSuPrimerMovimiento())) {
                             guardarPartida += "f";
                         }
                     }
                     if (casillas[i][j].getPieza() instanceof Torre) {
-                        if(!(((Torre) casillas[i][j].getPieza()).esSuPrimerMovimiento())){
+                        if (!(((Torre) casillas[i][j].getPieza()).esSuPrimerMovimiento())) {
                             guardarPartida += "f";
                         }
                     }
                     if (casillas[i][j].getPieza() instanceof Peon) {
-                        if(!(((Peon) casillas[i][j].getPieza()).esSuPrimerMovimiento())){
+                        if (!(((Peon) casillas[i][j].getPieza()).esSuPrimerMovimiento())) {
                             guardarPartida += "f";
                         }
                     }
@@ -336,6 +342,76 @@ public class Tablero {
 
     private String obtenerPiezasCapturadas() {
         return "";
+    }
+
+    public void mostrarCasillasALasQueSePuedeMover(Movimiento movimiento) throws MovimientoInvalido, CoronacionAvanzando, EnroqueLargo, EnroqueCorto, CoronacionCapturando {
+        System.out.println(movimiento);
+        if (!(hayPiezaParaMover(movimiento))) {
+            throw new MovimientoInvalido("No hay pieza en la coordenada inicial pendejo");
+        }
+        if (!(laPiezaQueQuiereMoverEsDeSuColor(movimiento))) {
+            throw new MovimientoInvalido("La pieza que quiere mover no es de su color");
+        }
+
+        ArrayList<ArrayList<int[]>> listaDeCoordenadas;
+        listaDeCoordenadas = casillas[movimiento.getFilaInicial()][movimiento.getColumnaInicial()].getPieza().obtenerListaDeCoordenadasPosibles(movimiento);
+
+        for (int i = 0; i < listaDeCoordenadas.size(); i++) {
+            for (int j = 0; j < listaDeCoordenadas.get(i).size(); j++) {
+                if (casillas[listaDeCoordenadas.get(i).get(j)[0]][listaDeCoordenadas.get(i).get(j)[1]].hayPieza()) {
+                    for (int o = 0; o < listaDeCoordenadas.size(); o++) {
+                        System.out.print("Lista#" + o + "{");
+                        for (int p = 0; p < listaDeCoordenadas.get(o).size(); p++) {
+                            System.out.print("" + p + Arrays.toString(listaDeCoordenadas.get(o).get(p)));
+                        }
+                        System.out.print("}\n");
+                    }
+                    quitarMovimientosNoAlcanzables(listaDeCoordenadas.get(i), j);
+                }
+            }
+        }
+
+        for (int i = 0; i < listaDeCoordenadas.size(); i++) {
+            for (int j = 0; j < listaDeCoordenadas.get(i).size(); j++) {
+                casillas[listaDeCoordenadas.get(i).get(j)[0]][listaDeCoordenadas.get(i).get(j)[1]].subrayar();
+            }
+        }
+
+        System.out.println(this);
+
+        for (int i = 0; i < listaDeCoordenadas.size(); i++) {
+            System.out.print("Lista#" + i + "{");
+            for (int j = 0; j < listaDeCoordenadas.get(i).size(); j++) {
+                System.out.print("" + j + Arrays.toString(listaDeCoordenadas.get(i).get(j)));
+            }
+            System.out.print("}\n");
+        }
+
+        quitarSubrayado();
+
+
+    }
+
+    private void quitarSubrayado() {
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                casillas[i][j].quitarSubrayado();
+            }
+        }
+    }
+
+    private void quitarMovimientosNoAlcanzables(ArrayList<int[]> ints, int j) {
+
+        ArrayList<int[]> aux = new ArrayList<>();
+        for (int i =0; i<j;i++){
+            aux.add(ints.get(i));
+        }
+
+        ints.clear();
+
+        for (int k =0; k<aux.size();k++){
+            ints.add(aux.get(k));
+        }
     }
 }
 

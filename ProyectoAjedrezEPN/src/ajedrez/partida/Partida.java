@@ -17,10 +17,17 @@ public class Partida {
         tablero = new Tablero();
     }
 
-    public Movimiento preguntarMovimiento(Jugador jugador) throws SintaxisInvalida, GuardarLaPartida {
+    public Movimiento preguntarMovimiento(Jugador jugador) throws SintaxisInvalida, GuardarLaPartida, CoronacionAvanzando, EnroqueLargo, EnroqueCorto, CoronacionCapturando, MovimientoInvalido {
         Scanner scannerDelJugador = new Scanner(System.in);
         String jugada = scannerDelJugador.next();
-        return new Movimiento(jugada, jugador);
+        Movimiento moviento = new Movimiento(jugador);
+        moviento.ingresarCoordenadasIniciales(jugada);
+        tablero.mostrarCasillasALasQueSePuedeMover(moviento);
+
+        Scanner scannerCoordenadasFinales = new Scanner(System.in);
+        String coordenadasFinales = scannerCoordenadasFinales.next();
+        moviento.ingresarCoordenadasFinales(coordenadasFinales);
+        return moviento;
     }
 
     /*
@@ -43,6 +50,14 @@ public class Partida {
                         System.out.println(si.getMessage());
                     } catch (MovimientoInvalido mi) {
                         System.out.println(mi.getMessage());
+                    } catch (CoronacionAvanzando e) {
+                        throw new RuntimeException(e);
+                    } catch (EnroqueLargo e) {
+                        throw new RuntimeException(e);
+                    } catch (EnroqueCorto e) {
+                        throw new RuntimeException(e);
+                    } catch (CoronacionCapturando e) {
+                        throw new RuntimeException(e);
                     } finally {
                         System.out.println(tablero);
                     }
@@ -56,6 +71,14 @@ public class Partida {
                         System.out.println(si.getMessage());
                     } catch (MovimientoInvalido mi) {
                         System.out.println(mi.getMessage());
+                    } catch (CoronacionAvanzando e) {
+                        throw new RuntimeException(e);
+                    } catch (EnroqueLargo e) {
+                        throw new RuntimeException(e);
+                    } catch (EnroqueCorto e) {
+                        throw new RuntimeException(e);
+                    } catch (CoronacionCapturando e) {
+                        throw new RuntimeException(e);
                     } finally {
                         System.out.println(tablero);
                     }

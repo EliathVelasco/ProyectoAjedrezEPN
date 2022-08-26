@@ -4,9 +4,13 @@ import java.util.Arrays;
 import java.util.regex.*;
 
 public class Movimiento {
-    protected final int [] coordenadasIniciales = new int[2];
-    protected final int [] coordenadasFinales = new int[2];
-    private final Jugador jugadorQueRealizoLaJugada;
+    protected int [] coordenadasIniciales = new int[2];
+    protected int [] coordenadasFinales = new int[2];
+    private Jugador jugadorQueRealizoLaJugada;
+
+    public Movimiento(Jugador jugador){
+        jugadorQueRealizoLaJugada = jugador;
+    }
 
     public Movimiento(String jugada, Jugador jugador) throws SintaxisInvalida, GuardarLaPartida {
         if(jugada.equals("Guardar")){
@@ -84,5 +88,23 @@ public class Movimiento {
 
     public ColorPiezas getColorDeJugador() {
         return jugadorQueRealizoLaJugada.getColor();
+    }
+
+    public void ingresarCoordenadasIniciales(String jugada) throws SintaxisInvalida {
+        if (!(Pattern.matches("[a-h][1-8]", jugada.toLowerCase()))) {
+            throw new SintaxisInvalida("Sintaxis no valida");
+        }
+
+        coordenadasIniciales[0] = transformarFilaIngresadaEnIndice(jugada.charAt(1));
+        coordenadasIniciales[1] = transformarColumnaIngresadaEnIndice(jugada.charAt(0));
+    }
+
+    public void ingresarCoordenadasFinales(String coordenadasFinales) throws SintaxisInvalida {
+        if (!(Pattern.matches("[a-h][1-8]", coordenadasFinales.toLowerCase()))) {
+            throw new SintaxisInvalida("Sintaxis no valida");
+        }
+
+        this.coordenadasFinales[0] = transformarFilaIngresadaEnIndice(coordenadasFinales.charAt(1));
+        this.coordenadasFinales[1] = transformarColumnaIngresadaEnIndice(coordenadasFinales.charAt(0));
     }
 }
