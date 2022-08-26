@@ -26,24 +26,27 @@ public class Rey extends Pieza {
     @Override
     public ArrayList<ArrayList<int[]>> obtenerListaDeCoordenadasPosibles(Movimiento movimiento) throws EnroqueCorto, EnroqueLargo{
         coordenadasPosibles.clear();
-        if(primerMovimiento){
-            if(color == ColorPiezas.BLANCAS){
-                if(Arrays.equals(movimiento.getCoordenadasIniciales(), new int[]{0,4}) && Arrays.equals(movimiento.getCoordenadasFinales(), new int[]{0,7})){
-                    throw new EnroqueLargo();
+        if(movimiento.getCoordenadasFinales() != null){
+            if(primerMovimiento){
+                if(color == ColorPiezas.BLANCAS){
+                    if(Arrays.equals(movimiento.getCoordenadasIniciales(), new int[]{0,4}) && Arrays.equals(movimiento.getCoordenadasFinales(), new int[]{0,7})){
+                        throw new EnroqueLargo();
+                    }
+                    if (Arrays.equals(movimiento.getCoordenadasIniciales(), new int[]{0,4}) && Arrays.equals(movimiento.getCoordenadasFinales(), new int[]{0,0})){
+                        throw new EnroqueCorto();
+                    }
                 }
-                if (Arrays.equals(movimiento.getCoordenadasIniciales(), new int[]{0,4}) && Arrays.equals(movimiento.getCoordenadasFinales(), new int[]{0,0})){
-                    throw new EnroqueCorto();
-                }
-            }
-            if(color == ColorPiezas.NEGRAS){
-                if(Arrays.equals(movimiento.getCoordenadasIniciales(), new int[]{7,4}) && Arrays.equals(movimiento.getCoordenadasFinales(), new int[]{7,7})){
-                    throw new EnroqueLargo();
-                }
-                if (Arrays.equals(movimiento.getCoordenadasIniciales(), new int[]{7,4}) && Arrays.equals(movimiento.getCoordenadasFinales(), new int[]{7,0})){
-                    throw new EnroqueCorto();
+                if(color == ColorPiezas.NEGRAS){
+                    if(Arrays.equals(movimiento.getCoordenadasIniciales(), new int[]{7,4}) && Arrays.equals(movimiento.getCoordenadasFinales(), new int[]{7,7})){
+                        throw new EnroqueLargo();
+                    }
+                    if (Arrays.equals(movimiento.getCoordenadasIniciales(), new int[]{7,4}) && Arrays.equals(movimiento.getCoordenadasFinales(), new int[]{7,0})){
+                        throw new EnroqueCorto();
+                    }
                 }
             }
         }
+
 
 
         if (movimiento.getFilaInicial() < 7){

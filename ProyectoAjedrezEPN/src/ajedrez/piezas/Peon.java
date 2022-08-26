@@ -59,7 +59,6 @@ public class Peon extends Pieza {
         if (primerMovimiento) {
             for (int i = movimiento.getFilaInicial() + 1; i < movimiento.getFilaInicial() + 3; i++) {
                 aux.add(new int[]{i, movimiento.getColumnaInicial()});
-                primerMovimiento = false;
             }
             coordenadasPosibles.add((ArrayList<int[]>) aux.clone());
             aux.clear();
@@ -76,7 +75,6 @@ public class Peon extends Pieza {
         if (primerMovimiento) {
             for (int i = movimiento.getFilaInicial() - 1; i > movimiento.getFilaInicial() - 3; i--) {
                 aux.add(new int[]{i, movimiento.getColumnaInicial()});
-                primerMovimiento = false;
             }
             coordenadasPosibles.add((ArrayList<int[]>) aux.clone());
             aux.clear();
@@ -88,28 +86,30 @@ public class Peon extends Pieza {
 
     }
     public void buscarMovimientosDeCapturaBlanca(Movimiento movimiento){
-
         ArrayList<int[]> aux = new ArrayList<>();
         if(movimiento.getColumnaInicial()>0){
             aux.add(new int[]{movimiento.getFilaInicial()+1, movimiento.getColumnaInicial()-1});
-
+            coordenadasPosibles.add((ArrayList<int[]>) aux.clone());
+            aux.clear();
         }
         if(movimiento.getColumnaInicial()<7 ){
             aux.add(new int[]{movimiento.getFilaInicial()+1, movimiento.getColumnaInicial()+1});
+            coordenadasPosibles.add((ArrayList<int[]>) aux.clone());
+            aux.clear();
         }
-        coordenadasPosibles.add((ArrayList<int[]>) aux.clone());
-        aux.clear();
     }
     public void buscarMovimientosDeCapturaNegras(Movimiento movimiento){
         ArrayList<int[]> aux = new ArrayList<>();
         if(movimiento.getColumnaInicial()<7){
             aux.add(new int[]{movimiento.getFilaInicial()-1, movimiento.getColumnaInicial()+1});
+            coordenadasPosibles.add((ArrayList<int[]>) aux.clone());
+            aux.clear();
         }
         if (movimiento.getColumnaInicial()>0){
             aux.add(new int[]{movimiento.getFilaInicial()-1, movimiento.getColumnaInicial()-1});
+            coordenadasPosibles.add((ArrayList<int[]>) aux.clone());
+            aux.clear();
         }
-        coordenadasPosibles.add((ArrayList<int[]>) aux.clone());
-        aux.clear();
     }
 
     public boolean esSuPrimerMovimiento() {

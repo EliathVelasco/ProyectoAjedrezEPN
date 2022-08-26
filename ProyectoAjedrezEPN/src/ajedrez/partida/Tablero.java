@@ -48,7 +48,6 @@ public class Tablero {
                 break;
             }
         }
-
     }
 
     private boolean encontrarAlReyEnEsaFila(Movimiento movimiento, int[] posicionDelRey, int i) {
@@ -114,7 +113,6 @@ public class Tablero {
     private void capturarPieza(Movimiento movimiento) {
         casillas[movimiento.coordenadasFinales[0]][movimiento.coordenadasFinales[1]].setPieza(casillas[movimiento.coordenadasIniciales[0]][movimiento.coordenadasIniciales[1]].getPieza());
         casillas[movimiento.getFilaInicial()][movimiento.getColumnaInicial()].quitarPieza();
-
     }
 
     private boolean movimientoEsUnaCaptura(Movimiento movimiento) throws MovimientoInvalido {
@@ -168,8 +166,6 @@ public class Tablero {
 
 
     private boolean movimientoEsValido(Movimiento movimiento) throws EnroqueCorto, EnroqueLargo, CoronacionCapturando, CoronacionAvanzando, MovimientoInvalido {
-        System.out.println(movimiento);
-
         if (!(hayPiezaParaMover(movimiento))) {
             throw new MovimientoInvalido("No hay pieza en la coordenada inicial pendejo");
         }
@@ -179,16 +175,11 @@ public class Tablero {
 
         ArrayList<ArrayList<int[]>> listaDeCoordenadas;
         listaDeCoordenadas = casillas[movimiento.getFilaInicial()][movimiento.getColumnaInicial()].getPieza().obtenerListaDeCoordenadasPosibles(movimiento);
+
         if (!(laPiezaPuedeIrAEsaCoordenada(movimiento, listaDeCoordenadas))) {
             throw new MovimientoInvalido("La pieza no se puede mover a la coordenada ingresada");
         }
-        for (int i = 0; i < listaDeCoordenadas.size(); i++) {
-            System.out.print("Lista#" + i + "{");
-            for (int j = 0; j < listaDeCoordenadas.get(i).size(); j++) {
-                System.out.print("" + j + Arrays.toString(listaDeCoordenadas.get(i).get(j)));
-            }
-            System.out.print("}\n");
-        }
+
         for (int i = 0; i < listaDeCoordenadas.size(); i++) {
             if (estaListaContineLaJugadaFinal(listaDeCoordenadas.get(i), movimiento.getCoordenadasFinales())) {
                 for (int j = 0; j < listaDeCoordenadas.get(i).size(); j++) {
@@ -345,7 +336,6 @@ public class Tablero {
     }
 
     public void mostrarCasillasALasQueSePuedeMover(Movimiento movimiento) throws MovimientoInvalido, CoronacionAvanzando, EnroqueLargo, EnroqueCorto, CoronacionCapturando {
-        System.out.println(movimiento);
         if (!(hayPiezaParaMover(movimiento))) {
             throw new MovimientoInvalido("No hay pieza en la coordenada inicial pendejo");
         }
@@ -359,13 +349,6 @@ public class Tablero {
         for (int i = 0; i < listaDeCoordenadas.size(); i++) {
             for (int j = 0; j < listaDeCoordenadas.get(i).size(); j++) {
                 if (casillas[listaDeCoordenadas.get(i).get(j)[0]][listaDeCoordenadas.get(i).get(j)[1]].hayPieza()) {
-                    for (int o = 0; o < listaDeCoordenadas.size(); o++) {
-                        System.out.print("Lista#" + o + "{");
-                        for (int p = 0; p < listaDeCoordenadas.get(o).size(); p++) {
-                            System.out.print("" + p + Arrays.toString(listaDeCoordenadas.get(o).get(p)));
-                        }
-                        System.out.print("}\n");
-                    }
                     quitarMovimientosNoAlcanzables(listaDeCoordenadas.get(i), j);
                 }
             }
@@ -379,6 +362,12 @@ public class Tablero {
 
         System.out.println(this);
 
+        quitarSubrayado();
+
+
+    }
+
+    private void mostrarListaDeJugadas(ArrayList<ArrayList<int[]>> listaDeCoordenadas) {
         for (int i = 0; i < listaDeCoordenadas.size(); i++) {
             System.out.print("Lista#" + i + "{");
             for (int j = 0; j < listaDeCoordenadas.get(i).size(); j++) {
@@ -386,10 +375,6 @@ public class Tablero {
             }
             System.out.print("}\n");
         }
-
-        quitarSubrayado();
-
-
     }
 
     private void quitarSubrayado() {
@@ -401,7 +386,6 @@ public class Tablero {
     }
 
     private void quitarMovimientosNoAlcanzables(ArrayList<int[]> ints, int j) {
-
         ArrayList<int[]> aux = new ArrayList<>();
         for (int i =0; i<j;i++){
             aux.add(ints.get(i));

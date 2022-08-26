@@ -4,8 +4,8 @@ import java.util.Arrays;
 import java.util.regex.*;
 
 public class Movimiento {
-    protected int [] coordenadasIniciales = new int[2];
-    protected int [] coordenadasFinales = new int[2];
+    protected int [] coordenadasIniciales;
+    protected int [] coordenadasFinales;
     private Jugador jugadorQueRealizoLaJugada;
 
     public Movimiento(Jugador jugador){
@@ -16,27 +16,11 @@ public class Movimiento {
         if(jugada.equals("Guardar")){
             throw new GuardarLaPartida();
         }
-        if (!(Pattern.matches("[a-h][1-8][a-h][1-8]|(0-0)|(0-0-0)", jugada.toLowerCase()))) {
+        if (!(Pattern.matches("[a-h][1-8][a-h][1-8]", jugada.toLowerCase()))) {
             throw new SintaxisInvalida("Sintaxis no valida");
         }
 
         this.jugadorQueRealizoLaJugada = jugador;
-
-        if (Pattern.matches("(0-0)", jugada.toLowerCase())){
-            if (jugadorQueRealizoLaJugada.getColor() == ColorPiezas.BLANCAS){
-                jugada = "e1h1";
-            }else {
-                jugada = "e8h8";
-            }
-        }
-
-        if (Pattern.matches("(0-0-0)", jugada.toLowerCase())){
-            if (jugadorQueRealizoLaJugada.getColor() == ColorPiezas.BLANCAS){
-                jugada = "e1a1";
-            }else {
-                jugada = "e8a8";
-            }
-        }
 
         coordenadasIniciales[0] = transformarFilaIngresadaEnIndice(jugada.charAt(1));
         coordenadasIniciales[1] = transformarColumnaIngresadaEnIndice(jugada.charAt(0));
@@ -95,6 +79,8 @@ public class Movimiento {
             throw new SintaxisInvalida("Sintaxis no valida");
         }
 
+        this.coordenadasIniciales = new int [2];
+
         coordenadasIniciales[0] = transformarFilaIngresadaEnIndice(jugada.charAt(1));
         coordenadasIniciales[1] = transformarColumnaIngresadaEnIndice(jugada.charAt(0));
     }
@@ -103,6 +89,8 @@ public class Movimiento {
         if (!(Pattern.matches("[a-h][1-8]", coordenadasFinales.toLowerCase()))) {
             throw new SintaxisInvalida("Sintaxis no valida");
         }
+
+        this.coordenadasFinales = new int [2];
 
         this.coordenadasFinales[0] = transformarFilaIngresadaEnIndice(coordenadasFinales.charAt(1));
         this.coordenadasFinales[1] = transformarColumnaIngresadaEnIndice(coordenadasFinales.charAt(0));
