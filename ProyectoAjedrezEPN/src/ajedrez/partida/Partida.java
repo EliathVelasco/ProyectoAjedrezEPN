@@ -1,7 +1,6 @@
 package ajedrez.partida;
 
 import ajedrez.excepciones.*;
-
 import java.util.Scanner;
 
 public class Partida {
@@ -30,15 +29,6 @@ public class Partida {
         return moviento;
     }
 
-    /*
-     * hacerMovimiento(){
-     *   if(validarMovimiento()){****}
-     * }
-     *
-     * private boolean validarMovimiento(Moviento){
-     *
-     * }
-     * */
     public void jugarPartida() {
         try {
             for (; ; ) {
