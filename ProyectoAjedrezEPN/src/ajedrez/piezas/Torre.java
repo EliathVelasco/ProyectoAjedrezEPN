@@ -2,10 +2,12 @@ package ajedrez.piezas;
 import ajedrez.partida.*;
 import java.util.ArrayList;
 
+import static ajedrez.Main.ANCHO_TABLERO;
+
 public class Torre extends Pieza {
     private boolean primerMovimiento;
     public Torre(ColorPiezas color) {
-        super(color,5);
+        super(color,5,ANCHO_TABLERO);
         this.primerMovimiento = true;
     }
     @Override
