@@ -96,7 +96,7 @@ public class Dama extends Pieza{
             aux.clear();
         }
 
-        if (movimiento.getColumnaInicial() > 7){
+        if (movimiento.getColumnaInicial() < 7){
             for (int i = movimiento.getColumnaInicial()+1; i < 8; i++) {
                 aux.add(new int[]{movimiento.getFilaInicial(), i});
             }
@@ -111,6 +111,7 @@ public class Dama extends Pieza{
             }
             coordenadasPosibles.add((ArrayList<int[]>) aux.clone());
         }
+
         return coordenadasPosibles;
     }
 }
