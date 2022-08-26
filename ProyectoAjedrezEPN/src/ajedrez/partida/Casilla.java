@@ -4,14 +4,14 @@ import ajedrez.piezas.Pieza;
 
 public class Casilla {
     private Pieza pieza;
-    private boolean highLighted;
+    private boolean estaSubrayada;
     public Casilla(Pieza pieza) {
         this.pieza = pieza;
-        highLighted = false;
+        estaSubrayada = false;
     }
     public Casilla() {
         this.pieza = null;
-        highLighted = false;
+        estaSubrayada = false;
     }
 
     public boolean hayPieza(){
@@ -44,17 +44,17 @@ public class Casilla {
         if (hayPieza()){
             return 1;
         }
-        if(highLighted){
+        if(estaSubrayada){
             return 2;
         }
         return 0;
     }
 
     public void subrayar() {
-        highLighted = true;
+        estaSubrayada = true;
     }
 
     public void quitarSubrayado() {
-        highLighted = false;
+        estaSubrayada = false;
     }
 }

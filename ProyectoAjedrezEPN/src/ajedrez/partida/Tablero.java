@@ -119,7 +119,14 @@ public class Tablero {
         if (casillas[movimiento.getFilaInicial()][movimiento.getColumnaInicial()].getPieza() instanceof Peon) {
             return verSiElPeonRealizaUnaCaptura(movimiento);
         }
-        return casillas[movimiento.getFilaFinal()][movimiento.getColumnaFinal()].hayPieza() && colorDePiezaDiferente(movimiento);
+        if(casillas[movimiento.getFilaFinal()][movimiento.getColumnaFinal()].hayPieza()){
+            if (colorDePiezaDiferente(movimiento)){
+                return true;
+            }else {
+                throw new MovimientoInvalido("La pieza que quiere capturar es del mismo color pendejo");
+            }
+        }
+        return false;
     }
 
 
@@ -146,12 +153,12 @@ public class Tablero {
     private void hacerEnroque(Movimiento movimiento, ArrayList<int[]> listaACorroborar) throws MovimientoInvalido {
         for (int i = 0; i < listaACorroborar.size(); i++) {
             if (casillas[listaACorroborar.get(i)[0]][listaACorroborar.get(i)[1]].hayPieza()) {
-                throw new MovimientoInvalido("No se puede realizar el enroque");
+                throw new MovimientoInvalido("No se puede realizar el enroque porque hay piezas entre ellos");
             }
         }
 
         if (!esElPrimerMovimientoDelReyYLaTorre(movimiento)) {
-            throw new MovimientoInvalido("No se puede realizar el enroque");
+            throw new MovimientoInvalido("No se puede realizar el enroque porque el rey o la torre ya fuero movidos");
         }
 
         casillas[movimiento.coordenadasFinales[0]][movimiento.coordenadasFinales[1] - 1].setPieza(casillas[movimiento.coordenadasIniciales[0]][movimiento.coordenadasIniciales[1]].getPieza());
@@ -351,7 +358,18 @@ public class Tablero {
                 if (casillas[listaDeCoordenadas.get(i).get(j)[0]][listaDeCoordenadas.get(i).get(j)[1]].hayPieza()) {
                     quitarMovimientosNoAlcanzables(listaDeCoordenadas.get(i), j);
                 }
+                if (casillas[movimiento.getFilaInicial()][movimiento.getColumnaInicial()].getPieza() instanceof Peon){
+                    if (listaDeCoordenadas.get(i).size() != 0 && listaDeCoordenadas.get(i).get(j)[1] != movimiento.getColumnaInicial()){
+                        if (!(casillas[listaDeCoordenadas.get(i).get(j)[0]][listaDeCoordenadas.get(i).get(j)[1]].hayPieza())){
+                            listaDeCoordenadas.get(i).clear();
+                        }
+                    }
+                }
             }
+        }
+
+        if (!(listaDeCoordenadasTieneAlMenosUna(listaDeCoordenadas))){
+            throw new MovimientoInvalido("Esa pieza no se puede mover a ningun lado pendejo");
         }
 
         for (int i = 0; i < listaDeCoordenadas.size(); i++) {
@@ -365,6 +383,15 @@ public class Tablero {
         quitarSubrayado();
 
 
+    }
+
+    private boolean listaDeCoordenadasTieneAlMenosUna(ArrayList<ArrayList<int[]>> listaDeCoordenadas) {
+        for (int i = 0; i < listaDeCoordenadas.size(); i++) {
+            if (listaDeCoordenadas.get(i).size()!=0){
+                return true;
+            }
+        }
+        return false;
     }
 
     private void mostrarListaDeJugadas(ArrayList<ArrayList<int[]>> listaDeCoordenadas) {
@@ -386,6 +413,10 @@ public class Tablero {
     }
 
     private void quitarMovimientosNoAlcanzables(ArrayList<int[]> ints, int j) {
+
+
+
+
         ArrayList<int[]> aux = new ArrayList<>();
         for (int i =0; i<j;i++){
             aux.add(ints.get(i));

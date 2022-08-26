@@ -2,6 +2,7 @@ package ajedrez.piezas;
 import ajedrez.excepciones.*;
 import ajedrez.partida.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Peon extends Pieza {
     private boolean primerMovimiento;
@@ -21,23 +22,31 @@ public class Peon extends Pieza {
     }
 
     public ArrayList<ArrayList<int[]>> obtenerListaDeCoordenadasPosibles (Movimiento movimiento) throws CoronacionAvanzando, CoronacionCapturando, MovimientoInvalido {
-        /*if (movimiento.getColumnaInicial()+1 == movimiento.getColumnaFinal() || movimiento.getColumnaInicial()-1 == movimiento.getColumnaFinal() || movimiento.getColumnaInicial() == movimiento.getColumnaFinal()){
-            throw new MovimientoInvalido("Jugada invalida");
-        }*/
+        if (movimiento.getCoordenadasFinales()!= null){
 
+            if (!(movimiento.getColumnaInicial()+1 == movimiento.getColumnaFinal() || movimiento.getColumnaInicial()-1 == movimiento.getColumnaFinal() || movimiento.getColumnaInicial() == movimiento.getColumnaFinal())){
+                throw new MovimientoInvalido("Jugada invalida, columna no alcanzable");
+            }
+        }
         if (color == ColorPiezas.BLANCAS) {
             agregarMovimientosPeonesBlancas(movimiento);
             buscarMovimientosDeCapturaBlanca(movimiento);
-            if (movimiento.getFilaFinal() == 7 && movimiento.getFilaInicial() == 6) {
-                asignarTipoDeCoronacion(movimiento);
+            if(movimiento.getCoordenadasFinales() != null){
+                if (movimiento.getFilaFinal() == 7 && movimiento.getFilaInicial() == 6) {
+                    asignarTipoDeCoronacion(movimiento);
+                }
             }
+
 
         }else{
             agregarMovimientosPeonesNegros(movimiento);
             buscarMovimientosDeCapturaNegras(movimiento);
-            if (movimiento.getFilaFinal() == 0 && movimiento.getFilaInicial() == 1){
-                asignarTipoDeCoronacion(movimiento);
+            if(movimiento.getCoordenadasFinales()!= null){
+                if (movimiento.getFilaFinal() == 0 && movimiento.getFilaInicial() == 1){
+                    asignarTipoDeCoronacion(movimiento);
+                }
             }
+
         }
         return coordenadasPosibles;
     }
@@ -63,7 +72,7 @@ public class Peon extends Pieza {
             coordenadasPosibles.add((ArrayList<int[]>) aux.clone());
             aux.clear();
         } else{
-            aux.add(new int[]{movimiento.getFilaInicial() + 1, movimiento.getColumnaFinal()});
+            aux.add(new int[]{movimiento.getFilaInicial() + 1, movimiento.getColumnaInicial()});
             coordenadasPosibles.add((ArrayList<int[]>) aux.clone());
             aux.clear();
         }
@@ -79,7 +88,7 @@ public class Peon extends Pieza {
             coordenadasPosibles.add((ArrayList<int[]>) aux.clone());
             aux.clear();
         } else{
-            aux.add(new int[]{movimiento.getFilaInicial() - 1, movimiento.getColumnaFinal()});
+            aux.add(new int[]{movimiento.getFilaInicial() - 1, movimiento.getColumnaInicial()});
             coordenadasPosibles.add((ArrayList<int[]>) aux.clone());
             aux.clear();
         }
