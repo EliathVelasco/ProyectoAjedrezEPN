@@ -19,7 +19,7 @@ public class Caballo extends Pieza {
 
     public ArrayList<ArrayList<int[]>> obtenerListaDeCoordenadasPosibles(Movimiento movimiento){
         //ArrayList<ArrayList<int []>> coordenadasPosibles = new ArrayList<>();
-        coordenadasPosibles.clear();
+        listaPadreDeCoordenadasPosibles.clear();
 
         if(movimiento.getFilaInicial() < 6 && movimiento.getColumnaInicial() < 7){
             agregarALaLista(new int[] {movimiento.getFilaInicial()+2, movimiento.getColumnaInicial()+1});
@@ -46,13 +46,13 @@ public class Caballo extends Pieza {
             agregarALaLista(new int[] {movimiento.getFilaInicial()-1, movimiento.getColumnaInicial()-2});
         }
 
-        return coordenadasPosibles;
+        return listaPadreDeCoordenadasPosibles;
     }
 
     private void agregarALaLista(int[] coordenadas) {
         ArrayList<int []> aux = new ArrayList<>();
         aux.add(coordenadas);
-        coordenadasPosibles.add((ArrayList<int[]>) aux.clone());
+        listaPadreDeCoordenadasPosibles.add((ArrayList<int[]>) aux.clone());
         aux.clear();
     }
 }

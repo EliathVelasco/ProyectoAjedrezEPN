@@ -8,7 +8,7 @@ public class Rey extends Pieza {
     private boolean primerMovimiento;
 
     public Rey(ColorPiezas color) {
-        super(color, 0);
+        super(color, 0,1);
         primerMovimiento = true;
     }
 
@@ -25,7 +25,7 @@ public class Rey extends Pieza {
 
     @Override
     public ArrayList<ArrayList<int[]>> obtenerListaDeCoordenadasPosibles(Movimiento movimiento) throws EnroqueCorto, EnroqueLargo{
-        coordenadasPosibles.clear();
+        listaPadreDeCoordenadasPosibles.clear();
         if(movimiento.getCoordenadasFinales() != null){
             if(primerMovimiento){
                 if(color == ColorPiezas.BLANCAS){
@@ -47,9 +47,10 @@ public class Rey extends Pieza {
             }
         }
 
+        obtenerCoordenadasPosiblesDeManeraDiagonalSegunElAlcanceDeLaPiezas(movimiento);
+        obtenerCoordenadasPosiblesDeManeraVerticalYHorizontalSegunElAlcanceDeLaPieza(movimiento);
 
-
-        if (movimiento.getFilaInicial() < 7){
+        /*if (movimiento.getFilaInicial() < 7){
             agregarALaLista(new int[] {movimiento.getFilaInicial()+1, movimiento.getColumnaInicial()});
             if (movimiento.getColumnaInicial() > 0) agregarALaLista(new int[] {movimiento.getFilaInicial()+1, movimiento.getColumnaInicial()-1});
             if (movimiento.getColumnaInicial() < 7) agregarALaLista(new int[] {movimiento.getFilaInicial()+1, movimiento.getColumnaInicial()+1});
@@ -63,15 +64,14 @@ public class Rey extends Pieza {
 
         if (movimiento.getColumnaInicial() > 0) agregarALaLista(new int[] {movimiento.getFilaInicial(), movimiento.getColumnaInicial()-1});
         if (movimiento.getColumnaInicial() < 7) agregarALaLista(new int[] {movimiento.getFilaInicial(), movimiento.getColumnaInicial()+1});
-
-
-        return coordenadasPosibles;
+*/
+        return listaPadreDeCoordenadasPosibles;
     }
 
     private void agregarALaLista(int[] coordenadas) {
         ArrayList<int []> aux = new ArrayList<>();
         aux.add(coordenadas);
-        coordenadasPosibles.add((ArrayList<int[]>) aux.clone());
+        listaPadreDeCoordenadasPosibles.add((ArrayList<int[]>) aux.clone());
         aux.clear();
     }
 
