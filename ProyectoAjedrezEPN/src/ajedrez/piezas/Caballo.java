@@ -1,4 +1,6 @@
 package ajedrez.piezas;
+import ajedrez.excepciones.EnroqueCorto;
+import ajedrez.excepciones.EnroqueLargo;
 import ajedrez.partida.*;
 import java.util.ArrayList;
 
@@ -17,7 +19,7 @@ public class Caballo extends Pieza {
     }
 
 
-    public ArrayList<ArrayList<int[]>> obtenerListaDeCoordenadasPosibles(Movimiento movimiento){
+    public ArrayList<ArrayList<int[]>> obtenerListaDeCoordenadasDondePuedeIr(Movimiento movimiento){
         //ArrayList<ArrayList<int []>> coordenadasPosibles = new ArrayList<>();
         listaPadreDeCoordenadasPosibles.clear();
 
@@ -47,6 +49,47 @@ public class Caballo extends Pieza {
         }
 
         return listaPadreDeCoordenadasPosibles;
+    }
+
+    public ArrayList<ArrayList<int[]>> obtenerListaDeCoordenadasDondePuedeIr(Coordenada coordenadasIniciales){
+        //ArrayList<ArrayList<int []>> coordenadasPosibles = new ArrayList<>();
+        listaPadreDeCoordenadasPosibles.clear();
+
+        if(coordenadasIniciales.getFila() < 6 && coordenadasIniciales.getColumna() < 7){
+            agregarALaLista(new int[] {coordenadasIniciales.getFila()+2, coordenadasIniciales.getColumna()+1});
+        }
+        if(coordenadasIniciales.getFila() < 6 && coordenadasIniciales.getColumna() > 0){
+            agregarALaLista(new int[] {coordenadasIniciales.getFila()+2, coordenadasIniciales.getColumna()-1});
+        }
+        if(coordenadasIniciales.getFila() < 7 && coordenadasIniciales.getColumna() < 6){
+            agregarALaLista(new int[] {coordenadasIniciales.getFila()+1, coordenadasIniciales.getColumna()+2});
+        }
+        if(coordenadasIniciales.getFila() < 7 && coordenadasIniciales.getColumna() > 1){
+            agregarALaLista(new int[] {coordenadasIniciales.getFila()+1, coordenadasIniciales.getColumna()-2});
+        }
+        if(coordenadasIniciales.getFila() > 1 && coordenadasIniciales.getColumna() < 7){
+            agregarALaLista(new int[] {coordenadasIniciales.getFila()-2, coordenadasIniciales.getColumna()+1});
+        }
+        if(coordenadasIniciales.getFila() > 1 && coordenadasIniciales.getColumna() > 0){
+            agregarALaLista(new int[] {coordenadasIniciales.getFila()-2, coordenadasIniciales.getColumna()-1});
+        }
+        if(coordenadasIniciales.getFila() > 0 && coordenadasIniciales.getColumna() < 6){
+            agregarALaLista(new int[] {coordenadasIniciales.getFila()-1, coordenadasIniciales.getColumna()+2});
+        }
+        if(coordenadasIniciales.getFila() > 0 && coordenadasIniciales.getColumna() > 1){
+            agregarALaLista(new int[] {coordenadasIniciales.getFila()-1, coordenadasIniciales.getColumna()-2});
+        }
+
+        return listaPadreDeCoordenadasPosibles;
+    }
+
+    public ArrayList<ArrayList<int[]>> obtenerListaDeCoordenadasDondePuedeComer(Coordenada coordenadaInicial) {
+        return obtenerListaDeCoordenadasDondePuedeIr(coordenadaInicial);
+    }
+
+    @Override
+    public ArrayList<ArrayList<int[]>> obtenerListaDeCoordenadasDondePuedeComer(Movimiento movimiento) throws EnroqueLargo, EnroqueCorto {
+        return obtenerListaDeCoordenadasDondePuedeIr(movimiento);
     }
 
     private void agregarALaLista(int[] coordenadas) {

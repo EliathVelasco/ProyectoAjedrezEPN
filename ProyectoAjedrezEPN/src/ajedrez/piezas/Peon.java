@@ -20,7 +20,7 @@ public class Peon extends Pieza {
         }
     }
 
-    public ArrayList<ArrayList<int[]>> obtenerListaDeCoordenadasPosibles (Movimiento movimiento) throws CoronacionAvanzando, CoronacionCapturando, MovimientoInvalido {
+    public ArrayList<ArrayList<int[]>> obtenerListaDeCoordenadasDondePuedeIr(Movimiento movimiento) throws CoronacionAvanzando, CoronacionCapturando, MovimientoInvalido {
         if (movimiento.getCoordenadasFinales()!= null){
 
             if (!(movimiento.getColumnaInicial()+1 == movimiento.getColumnaFinal() || movimiento.getColumnaInicial()-1 == movimiento.getColumnaFinal() || movimiento.getColumnaInicial() == movimiento.getColumnaFinal())){
@@ -48,6 +48,42 @@ public class Peon extends Pieza {
 
         }
         return listaPadreDeCoordenadasPosibles;
+    }
+
+    @Override
+    public ArrayList<ArrayList<int[]>> obtenerListaDeCoordenadasDondePuedeComer(Movimiento movimiento) throws EnroqueLargo, EnroqueCorto {
+        listaPadreDeCoordenadasPosibles.clear();
+        if (color == ColorPiezas.BLANCAS) {
+            buscarMovimientosDeCapturaBlanca(movimiento);
+        }else{
+            buscarMovimientosDeCapturaNegras(movimiento);
+        }
+        return listaPadreDeCoordenadasPosibles;
+    }
+
+    @Override
+    public ArrayList<ArrayList<int[]>> obtenerListaDeCoordenadasDondePuedeComer(Coordenada coordenadaInicial) {
+        listaPadreDeCoordenadasPosibles.clear();
+        if (color == ColorPiezas.BLANCAS){
+            agregarMovimientosDeCapturaBlancaALaListaPadreDeMovimientos(coordenadaInicial);
+        } else {
+            agregarMovimientosDeCapturaNegraALaListaPadreDeMovimientos(coordenadaInicial);
+        }
+        return listaPadreDeCoordenadasPosibles;
+    }
+
+    private void agregarMovimientosDeCapturaNegraALaListaPadreDeMovimientos(Coordenada coordenadaInicial) {
+        ArrayList<int[]> aux = new ArrayList<>();
+        if(coordenadaInicial.getColumna()<7){
+            aux.add(new int[]{coordenadaInicial.getFila()-1, coordenadaInicial.getColumna()+1});
+            listaPadreDeCoordenadasPosibles.add((ArrayList<int[]>) aux.clone());
+            aux.clear();
+        }
+        if (coordenadaInicial.getColumna()>0){
+            aux.add(new int[]{coordenadaInicial.getFila()-1, coordenadaInicial.getColumna()-1});
+            listaPadreDeCoordenadasPosibles.add((ArrayList<int[]>) aux.clone());
+            aux.clear();
+        }
     }
 
     private void asignarTipoDeCoronacion(Movimiento movimiento) throws CoronacionAvanzando, CoronacionCapturando{
@@ -93,6 +129,21 @@ public class Peon extends Pieza {
         }
 
     }
+
+    public void agregarMovimientosDeCapturaBlancaALaListaPadreDeMovimientos(Coordenada coordenadaInicial){
+        ArrayList<int[]> aux = new ArrayList<>();
+        if(coordenadaInicial.getColumna()>0){
+            aux.add(new int[]{coordenadaInicial.getFila()+1, coordenadaInicial.getColumna()-1});
+            listaPadreDeCoordenadasPosibles.add((ArrayList<int[]>) aux.clone());
+            aux.clear();
+        }
+        if(coordenadaInicial.getColumna()<7 ){
+            aux.add(new int[]{coordenadaInicial.getFila()+1, coordenadaInicial.getColumna()+1});
+            listaPadreDeCoordenadasPosibles.add((ArrayList<int[]>) aux.clone());
+            aux.clear();
+        }
+    }
+
     public void buscarMovimientosDeCapturaBlanca(Movimiento movimiento){
         ArrayList<int[]> aux = new ArrayList<>();
         if(movimiento.getColumnaInicial()>0){

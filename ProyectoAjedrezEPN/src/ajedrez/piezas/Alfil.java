@@ -10,11 +10,28 @@ public class Alfil extends Pieza {
         super(color, 3,LARGO_TABLERO);
     }
 
-    public ArrayList<ArrayList<int[]>> obtenerListaDeCoordenadasPosibles(Movimiento movimiento) {
+    public ArrayList<ArrayList<int[]>> obtenerListaDeCoordenadasDondePuedeIr(Movimiento movimiento) {
         listaPadreDeCoordenadasPosibles.clear();
         obtenerCoordenadasPosiblesDeManeraDiagonalSegunElAlcanceDeLaPiezas(movimiento);
         return listaPadreDeCoordenadasPosibles;
     }
+
+    @Override
+    public ArrayList<ArrayList<int[]>> obtenerListaDeCoordenadasDondePuedeComer(Movimiento movimiento) {
+        return obtenerListaDeCoordenadasDondePuedeIr(movimiento);
+    }
+
+    @Override
+    public ArrayList<ArrayList<int[]>> obtenerListaDeCoordenadasDondePuedeComer(Coordenada coordenadaInicial) {
+        return obtenerListaDeCoordenadasDondePuedeIr(coordenadaInicial);
+    }
+
+    private ArrayList<ArrayList<int[]>> obtenerListaDeCoordenadasDondePuedeIr(Coordenada coordenadaInicial) {
+        listaPadreDeCoordenadasPosibles.clear();
+        obtenerCoordenadasPosiblesDeManeraDiagonalSegunElAlcanceDeLaPiezas(coordenadaInicial);
+        return listaPadreDeCoordenadasPosibles;
+    }
+
 
     @Override
     public String toString() {

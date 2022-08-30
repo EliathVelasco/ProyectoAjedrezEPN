@@ -1,4 +1,6 @@
 package ajedrez.piezas;
+import ajedrez.excepciones.EnroqueCorto;
+import ajedrez.excepciones.EnroqueLargo;
 import ajedrez.partida.*;
 import java.util.ArrayList;
 
@@ -18,10 +20,15 @@ public class Torre extends Pieza {
             return "t";
         }
     }
-    public ArrayList<ArrayList<int[]>> obtenerListaDeCoordenadasPosibles(Movimiento movimiento){
+    public ArrayList<ArrayList<int[]>> obtenerListaDeCoordenadasDondePuedeIr(Movimiento movimiento){
         listaPadreDeCoordenadasPosibles.clear();
         obtenerCoordenadasPosiblesDeManeraDiagonalSegunElAlcanceDeLaPiezas(movimiento);
         return listaPadreDeCoordenadasPosibles;
+    }
+
+    @Override
+    public ArrayList<ArrayList<int[]>> obtenerListaDeCoordenadasDondePuedeComer(Movimiento movimiento) throws EnroqueLargo, EnroqueCorto {
+        return obtenerListaDeCoordenadasDondePuedeIr(movimiento);
     }
 
     public boolean esSuPrimerMovimiento(){

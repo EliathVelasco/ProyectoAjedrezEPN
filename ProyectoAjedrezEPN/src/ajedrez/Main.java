@@ -1,12 +1,13 @@
 package ajedrez;
 import ajedrez.partida.*;
 import ajedrez.excepciones.PartidaFinalizadoException;
+
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
     public static final int LARGO_TABLERO =8;
     public static final int ANCHO_TABLERO =8;
-
     public static void main(String[] args) throws PartidaFinalizadoException {
         Scanner scannerDeLaOpcion = new Scanner(System.in);
         System.out.print("Elija una opcion:\n");

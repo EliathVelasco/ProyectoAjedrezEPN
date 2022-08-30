@@ -4,6 +4,8 @@ import java.util.Arrays;
 import java.util.regex.*;
 
 public class Movimiento {
+    protected Coordenada coordenadaInicial;
+    protected Coordenada coordenadaFinal;
     protected int [] coordenadasIniciales;
     protected int [] coordenadasFinales;
     private Jugador jugadorQueRealizoLaJugada;
@@ -11,6 +13,7 @@ public class Movimiento {
     public Movimiento(Jugador jugador){
         jugadorQueRealizoLaJugada = jugador;
     }
+    public Movimiento(){}
 
     public Movimiento(String jugada, Jugador jugador) throws SintaxisInvalida, GuardarLaPartida {
         if(jugada.equals("Guardar")){
@@ -94,5 +97,11 @@ public class Movimiento {
 
         this.coordenadasFinales[0] = transformarFilaIngresadaEnIndice(coordenadasFinales.charAt(1));
         this.coordenadasFinales[1] = transformarColumnaIngresadaEnIndice(coordenadasFinales.charAt(0));
+    }
+
+    public void setCoordenadasIniciales(int[] coordenadasIniciales) {
+        this.coordenadasIniciales[0] = coordenadasIniciales[0];
+        this.coordenadasIniciales[1] = coordenadasIniciales[1];
+        this.coordenadasFinales = null;
     }
 }

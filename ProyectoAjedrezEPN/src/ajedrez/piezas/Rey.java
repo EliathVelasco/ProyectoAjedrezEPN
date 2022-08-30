@@ -24,7 +24,7 @@ public class Rey extends Pieza {
     * El rey tampoco clava las piezas, por lo que hay que ver que mismo hacemos aqui*/
 
     @Override
-    public ArrayList<ArrayList<int[]>> obtenerListaDeCoordenadasPosibles(Movimiento movimiento) throws EnroqueCorto, EnroqueLargo{
+    public ArrayList<ArrayList<int[]>> obtenerListaDeCoordenadasDondePuedeIr(Movimiento movimiento) throws EnroqueCorto, EnroqueLargo{
         listaPadreDeCoordenadasPosibles.clear();
         if(movimiento.getCoordenadasFinales() != null){
             if(primerMovimiento){
@@ -50,22 +50,27 @@ public class Rey extends Pieza {
         obtenerCoordenadasPosiblesDeManeraDiagonalSegunElAlcanceDeLaPiezas(movimiento);
         obtenerCoordenadasPosiblesDeManeraVerticalYHorizontalSegunElAlcanceDeLaPieza(movimiento);
 
-        /*if (movimiento.getFilaInicial() < 7){
-            agregarALaLista(new int[] {movimiento.getFilaInicial()+1, movimiento.getColumnaInicial()});
-            if (movimiento.getColumnaInicial() > 0) agregarALaLista(new int[] {movimiento.getFilaInicial()+1, movimiento.getColumnaInicial()-1});
-            if (movimiento.getColumnaInicial() < 7) agregarALaLista(new int[] {movimiento.getFilaInicial()+1, movimiento.getColumnaInicial()+1});
-        }
-
-        if (movimiento.getFilaInicial() > 0){
-            agregarALaLista(new int[] {movimiento.getFilaInicial()-1, movimiento.getColumnaInicial()});
-            if (movimiento.getColumnaInicial() > 0) agregarALaLista(new int[] {movimiento.getFilaInicial()-1, movimiento.getColumnaInicial()-1});
-            if (movimiento.getColumnaInicial() < 7) agregarALaLista(new int[] {movimiento.getFilaInicial()-1, movimiento.getColumnaInicial()+1});
-        }
-
-        if (movimiento.getColumnaInicial() > 0) agregarALaLista(new int[] {movimiento.getFilaInicial(), movimiento.getColumnaInicial()-1});
-        if (movimiento.getColumnaInicial() < 7) agregarALaLista(new int[] {movimiento.getFilaInicial(), movimiento.getColumnaInicial()+1});
-*/
         return listaPadreDeCoordenadasPosibles;
+    }
+
+
+    public ArrayList<ArrayList<int[]>> obtenerListaDeCoordenadasDondePuedeIr(Coordenada coordenadasIniciales){
+        listaPadreDeCoordenadasPosibles.clear();
+
+        obtenerCoordenadasPosiblesDeManeraDiagonalSegunElAlcanceDeLaPiezas(coordenadasIniciales);
+        obtenerCoordenadasPosiblesDeManeraVerticalYHorizontalSegunElAlcanceDeLaPieza(coordenadasIniciales);
+
+        if (primerMovimiento){
+            agregarALaLista(new int[] {coordenadasIniciales.getFila()-1, coordenadasIniciales.getColumna()-2});
+
+        }
+
+        return listaPadreDeCoordenadasPosibles;
+    }
+
+    @Override
+    public ArrayList<ArrayList<int[]>> obtenerListaDeCoordenadasDondePuedeComer(Movimiento movimiento) throws EnroqueLargo, EnroqueCorto {
+        return obtenerListaDeCoordenadasDondePuedeIr(movimiento);
     }
 
     private void agregarALaLista(int[] coordenadas) {
